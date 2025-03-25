@@ -1,0 +1,70 @@
+nav {
+	max-width: 1440px;
+	margin: 0 auto;
+	padding: 20px 0px 20px 0px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.logoContainer {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.logoContainer span {
+	font-size: 26px;
+	font-weight: bold;
+}
+
+.searchForm {
+	display: flex;
+	gap: 7px;
+}
+
+.searchForm .inputWrapper {
+	position: relative;
+}
+
+.searchForm input {
+	padding: 12px 40px 12px 15px;
+	border-radius: 15px;
+	border: none;
+	box-shadow: 0px 2px 6px 0px rgba(0, 0, 255, 0.2);
+    outline: none;
+}
+
+.searchForm button {
+	background-color: unset;
+	border: none;
+	cursor: pointer;
+}
+
+.searchForm .searchBtn {
+	position: absolute;
+	right: 8px;
+	top: 50%;
+	transform: translateY(-50%);
+	padding: 0px 5px 0px 5px;
+}
+
+.searchForm .locationBtn {
+	color: inherit;
+}
+
+.metricsContainer button {
+	border: none;
+	background-color: transparent;
+	color: inherit;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.metricsContainer button:hover {
+	opacity: 0.35;
+}
+
+.metricsContainer span {
+	font-weight: bold;
+}
