@@ -32,7 +32,7 @@ nav {
 	border-radius: 15px;
 	border: none;
 	box-shadow: 0px 2px 6px 0px rgba(0, 0, 255, 0.2);
-    outline: none;
+	outline: none;
 }
 
 .searchForm button {
@@ -51,6 +51,10 @@ nav {
 
 .searchForm .locationBtn {
 	color: inherit;
+}
+
+.searchForm .locationBtn:hover {
+	opacity: 0.35;
 }
 
 .metricsContainer button {
