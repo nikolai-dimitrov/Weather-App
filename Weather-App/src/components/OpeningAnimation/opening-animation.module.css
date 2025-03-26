@@ -1,0 +1,50 @@
+.layout {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.animationContainer {
+}
+
+.logoContainer {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.logoContainer span {
+	font-size: 28px;
+}
+
+.circle {
+	height: 100%;
+	width: 100%;
+}
+
+.cloudsContainer {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 10%;
+}
+
+.cloudsContainer.top30 {
+	top: 30%;
+}
+
+.cloudsContainer.top50 {
+	top: 50%;
+}
+
+.cloudsContainer.top70 {
+	top: 70%;
+}
+
+.cloudsContainer.top90 {
+	top: 90%;
+}
