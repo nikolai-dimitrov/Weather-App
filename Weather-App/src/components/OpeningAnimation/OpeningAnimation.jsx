@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { MovingLogoRow } from "./MovingLogoRow/MovingLogoRow";
 import { easeInOut, motion } from "motion/react";
 import { Circle } from 'rc-progress';
 import { IoMdPartlySunny } from "react-icons/io";
@@ -53,174 +54,56 @@ export const OpeningAnimation = () => {
                     <div className={styles.movingAnimationContainer}>
                         <motion.div
                             animate={{ x: [0, 100, 0], opacity: [0, 0.6, 0.6, 0] }}
-                           transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
+                            transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
                             className={styles.cloudsContainer}
                         >
-                            <div className={styles.movingLogoWrapper}>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                            </div>
-                        </motion.div>
-                        <motion.div
-                            animate={{ x: [100, 0, 100], opacity: [0, 0.6, 0.6, 0] }}
-                           transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
-                        >
-                            <div className={styles.movingLogoWrapper}>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                            </div>
-                        </motion.div>
-                        <motion.div
-                            animate={{ x: [0, 100, 0], opacity: [0, 0.6, 0.6, 0] }}
-                           transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
-                            className={styles.cloudsContainer}
-                        >
-                            <div className={styles.movingLogoWrapper}>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                            </div>
-                        </motion.div>
-                        <motion.div
-                            animate={{ x: [100, 0, 100], opacity: [0, 0.6, 0.6, 0] }}
-                           transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
-                        >
-                            <div className={styles.movingLogoWrapper}>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                            </div>
-                        </motion.div>
-                        <motion.div
-                            animate={{ x: [0, 100, 0], opacity: [0, 0.6, 0.6, 0] }}
-                           transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
-                            className={styles.cloudsContainer}
-                        >
-                            <div className={styles.movingLogoWrapper}>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                            </div>
-                        </motion.div>
-                        <motion.div
-                            animate={{ x: [100, 0, 100], opacity: [0, 0.6, 0.6, 0] }}
-                           transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
-                        >
-                            <div className={styles.movingLogoWrapper}>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                            </div>
-                        </motion.div>
-                        <motion.div
-                            animate={{ x: [0, 100, 0], opacity: [0, 0.6, 0.6, 0] }}
-                           transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
-                            className={styles.cloudsContainer}
-                        >
-                            <div className={styles.movingLogoWrapper}>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                            </div>
+                            <MovingLogoRow />
                         </motion.div>
                         <motion.div
                             animate={{ x: [100, 0, 100], opacity: [0, 0.6, 0.6, 0] }}
                             transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
                         >
-                            <div className={styles.movingLogoWrapper}>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-                                <div className={styles.movingLogoContainer}>
-                                    <IoMdPartlySunny size={35} />
-                                    <span>WeatherNow</span>
-                                </div>
-
-                            </div>
+                            <MovingLogoRow />
                         </motion.div>
-
+                        <motion.div
+                            animate={{ x: [0, 100, 0], opacity: [0, 0.6, 0.6, 0] }}
+                            transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
+                            className={styles.cloudsContainer}
+                        >
+                            <MovingLogoRow />
+                        </motion.div>
+                        <motion.div
+                            animate={{ x: [100, 0, 100], opacity: [0, 0.6, 0.6, 0] }}
+                            transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
+                        >
+                            <MovingLogoRow />
+                        </motion.div>
+                        <motion.div
+                            animate={{ x: [0, 100, 0], opacity: [0, 0.6, 0.6, 0] }}
+                            transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
+                            className={styles.cloudsContainer}
+                        >
+                            <MovingLogoRow />
+                        </motion.div>
+                        <motion.div
+                            animate={{ x: [100, 0, 100], opacity: [0, 0.6, 0.6, 0] }}
+                            transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
+                        >
+                            <MovingLogoRow />
+                        </motion.div>
+                        <motion.div
+                            animate={{ x: [0, 100, 0], opacity: [0, 0.6, 0.6, 0] }}
+                            transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
+                            className={styles.cloudsContainer}
+                        >
+                            <MovingLogoRow />
+                        </motion.div>
+                        <motion.div
+                            animate={{ x: [100, 0, 100], opacity: [0, 0.6, 0.6, 0] }}
+                            transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
+                        >
+                            <MovingLogoRow />
+                        </motion.div>
                     </div>
                 </motion.div>
             </div>

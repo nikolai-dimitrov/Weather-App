@@ -1,0 +1,9 @@
+.movingLogoWrapper {
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.movingLogoContainer {
+	display: flex;
+	align-items: center;
+}
