@@ -53,7 +53,7 @@ export const OpeningAnimation = () => {
                     <div className={styles.movingAnimationContainer}>
                         <motion.div
                             animate={{ x: [0, 100, 0], opacity: [0, 0.6, 0.6, 0] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
+                           transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
                             className={styles.cloudsContainer}
                         >
                             <div className={styles.movingLogoWrapper}>
@@ -69,7 +69,7 @@ export const OpeningAnimation = () => {
                         </motion.div>
                         <motion.div
                             animate={{ x: [100, 0, 100], opacity: [0, 0.6, 0.6, 0] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
+                           transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
                         >
                             <div className={styles.movingLogoWrapper}>
                                 <div className={styles.movingLogoContainer}>
@@ -92,7 +92,7 @@ export const OpeningAnimation = () => {
                         </motion.div>
                         <motion.div
                             animate={{ x: [0, 100, 0], opacity: [0, 0.6, 0.6, 0] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
+                           transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
                             className={styles.cloudsContainer}
                         >
                             <div className={styles.movingLogoWrapper}>
@@ -112,7 +112,7 @@ export const OpeningAnimation = () => {
                         </motion.div>
                         <motion.div
                             animate={{ x: [100, 0, 100], opacity: [0, 0.6, 0.6, 0] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
+                           transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
                         >
                             <div className={styles.movingLogoWrapper}>
                                 <div className={styles.movingLogoContainer}>
@@ -131,7 +131,7 @@ export const OpeningAnimation = () => {
                         </motion.div>
                         <motion.div
                             animate={{ x: [0, 100, 0], opacity: [0, 0.6, 0.6, 0] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
+                           transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
                             className={styles.cloudsContainer}
                         >
                             <div className={styles.movingLogoWrapper}>
@@ -155,7 +155,7 @@ export const OpeningAnimation = () => {
                         </motion.div>
                         <motion.div
                             animate={{ x: [100, 0, 100], opacity: [0, 0.6, 0.6, 0] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
+                           transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
                         >
                             <div className={styles.movingLogoWrapper}>
                                 <div className={styles.movingLogoContainer}>
@@ -182,7 +182,7 @@ export const OpeningAnimation = () => {
                         </motion.div>
                         <motion.div
                             animate={{ x: [0, 100, 0], opacity: [0, 0.6, 0.6, 0] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
+                           transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
                             className={styles.cloudsContainer}
                         >
                             <div className={styles.movingLogoWrapper}>
@@ -202,7 +202,7 @@ export const OpeningAnimation = () => {
                         </motion.div>
                         <motion.div
                             animate={{ x: [100, 0, 100], opacity: [0, 0.6, 0.6, 0] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
+                            transition={{ duration: 3.75, repeat: Infinity, ease: easeInOut, times: [0, 0.9, 0.9, 1] }}
                         >
                             <div className={styles.movingLogoWrapper}>
                                 <div className={styles.movingLogoContainer}>
