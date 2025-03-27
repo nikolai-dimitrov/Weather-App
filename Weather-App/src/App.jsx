@@ -4,15 +4,33 @@ import { OpeningAnimation } from './components/OpeningAnimation/OpeningAnimation
 import './App.css'
 
 function App() {
-  const [ isLoading, setIsLoading ] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentLocation, setCurrentLocation] = useState(null);
+
   useEffect(() => {
-    const timeOut = setTimeout(() => setIsLoading(false), 4000)
-    return () => clearTimeout(timeOut)
+    const timeOut = setTimeout(() => setIsLoading(false), 4000);
+    return () => clearTimeout(timeOut);
   }, [])
 
-  // console.log(navigator.geolocation.getCurrentPosition((position)=> {
-  //   console.log(position)
-  // }))
+  useEffect(() => {
+    getGeoLocation();
+  }, [])
+
+  // TODO: Display errors into popup
+  const getGeoLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position["coords"];
+        setCurrentLocation({ latitude, longitude });
+      },
+        (error) => {
+          console.log("There is problem getting user location.")
+        })
+    } else {
+      console.log("Geolocation is not available.")
+    }
+  }
+
   return (
     <>
 
@@ -22,7 +40,7 @@ function App() {
         ) : (
           <>
             <header>
-              <Navbar />
+              <Navbar getGeoLocation={getGeoLocation} />
             </header>
             <main>
 
