@@ -12,24 +12,15 @@ function App() {
 
   useEffect(() => {
     const timeOut = setTimeout(() => setIsLoading(false), 4000);
+    const data = fetchWeatherWithCurrentLocation()
+    setWeatherData(data)
+
     return () => clearTimeout(timeOut);
   }, []);
 
-  useEffect(() => {
-    getGeoLocation();
-    const getWeatherData = async () => {
-      try {
-        // const weatherData = await extractWeatherData(currentLocation);
-        // setWeatherData(weatherData);
-      } catch (error) {
-        console.log(error.message)
-      }
-    }
-    // getWeatherData()
-  }, []);
 
-  // TODO: Display errors into popup
-  const getGeoLocation = () => {
+  const fetchWeatherWithCurrentLocation = () => {
+    console.log('invoked')
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
@@ -37,7 +28,8 @@ function App() {
           setCurrentLocation({ latitude, longitude });
 
           const weatherData = await extractWeatherData({ latitude, longitude });
-          setWeatherData(weatherData);
+          return weatherData
+
         },
         (error) => {
           console.log("There is problem getting user location.");
@@ -47,6 +39,17 @@ function App() {
     }
   }
 
+  // TODO: Display errors into popup
+
+
+  // const processWeatherData = async (currentLocation) => {
+  //   try {
+  //     const weatherData = await extractWeatherData(currentLocation);
+  //     setWeatherData(weatherData);
+  //   } catch (error) {
+  //     console.log(error.message)
+  //   }
+  // }
   return (
     <>
 
@@ -56,7 +59,7 @@ function App() {
         ) : (
           <>
             <header>
-              <Navbar getGeoLocation={getGeoLocation} />
+              <Navbar fetchWeatherWithCurrentLocation={fetchWeatherWithCurrentLocation} />
             </header>
             <main>
 

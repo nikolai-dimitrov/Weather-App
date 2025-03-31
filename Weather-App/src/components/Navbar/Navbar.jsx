@@ -3,7 +3,7 @@ import { BiCurrentLocation } from "react-icons/bi";
 import { FaSearch } from "react-icons/fa";
 import styles from "./navbar.module.css";
 
-export const Navbar = ({ getGeoLocation }) => {
+export const Navbar = ({ fetchWeatherWithCurrentLocation}) => {
     const submitHandler = (e) => {
         e.preventDefault();
     }
@@ -22,7 +22,7 @@ export const Navbar = ({ getGeoLocation }) => {
                             <FaSearch size={20} />
                         </button>
                     </div>
-                    <button className={styles.locationBtn} onClick={getGeoLocation}>
+                    <button className={styles.locationBtn} onClick={fetchWeatherWithCurrentLocation}>
                         <BiCurrentLocation size={30} />
                     </button>
                 </form>
