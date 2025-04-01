@@ -18,11 +18,13 @@ export const fetchWeatherData = async (queryString) => {
 
 export const extractWeatherData = async (locationParams) => {
 	let queryString = "";
-	if (typeof locationParams === "object") {
+	if (locationParams.hasOwnProperty("latitude")) {
 		queryString = `${locationParams.latitude},${locationParams.longitude}`;
+	} else if (locationParams.hasOwnProperty("location")) {
+		queryString = `${locationParams.location}`;
 	}
+
 	const weatherData = await fetchWeatherData(queryString);
-	console.log(weatherData);
 
 	const {
 		current: { humidity },

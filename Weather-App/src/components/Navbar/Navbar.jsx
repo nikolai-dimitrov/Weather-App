@@ -1,12 +1,20 @@
+import { useState } from "react";
+
 import { IoMdPartlySunny } from "react-icons/io";
 import { BiCurrentLocation } from "react-icons/bi";
 import { FaSearch } from "react-icons/fa";
+
 import styles from "./navbar.module.css";
 
-export const Navbar = ({ fetchWeatherWithCurrentLocation}) => {
-    const submitHandler = (e) => {
-        e.preventDefault();
-    }
+export const Navbar = ({ fetchWeatherWithCurrentLocation, searchWeatherFormSubmitHandler }) => {
+    const [searchedLocation, setSearchedLocation] = useState({
+        location: '',
+    });
+
+    const onChangeHandler = (e) => {
+        setSearchedLocation((state) => ({ location: e.target.value }))
+
+    };
 
     return (
         <>
@@ -15,14 +23,14 @@ export const Navbar = ({ fetchWeatherWithCurrentLocation}) => {
                     <IoMdPartlySunny size={50} />
                     <span>WeatherNow</span>
                 </div>
-                <form className={styles.searchForm} onSubmit={submitHandler}>
+                <form className={styles.searchForm} onSubmit={(e) => searchWeatherFormSubmitHandler(e, searchedLocation)}>
                     <div className={styles.inputWrapper}>
-                        <input type="text" placeholder="Search Locations" />
-                        <button className={styles.searchBtn}>
+                        <input type="text" placeholder="Search Locations" name="city" onChange={onChangeHandler} />
+                        <button className={styles.searchBtn} type="submit">
                             <FaSearch size={20} />
                         </button>
                     </div>
-                    <button className={styles.locationBtn} onClick={fetchWeatherWithCurrentLocation}>
+                    <button className={styles.locationBtn} type="button" onClick={fetchWeatherWithCurrentLocation}>
                         <BiCurrentLocation size={30} />
                     </button>
                 </form>

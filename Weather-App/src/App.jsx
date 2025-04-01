@@ -2,54 +2,45 @@ import { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar/Navbar';
 import { OpeningAnimation } from './components/OpeningAnimation/OpeningAnimation';
 
-import { fetchWeatherData, extractWeatherData } from './services/weatherApiService';
+import { extractWeatherData } from './services/weatherApiService';
 import './App.css'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [currentLocation, setCurrentLocation] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
     const timeOut = setTimeout(() => setIsLoading(false), 4000);
-    const data = fetchWeatherWithCurrentLocation()
-    setWeatherData(data)
-
+    fetchWeatherWithCurrentLocation()
     return () => clearTimeout(timeOut);
   }, []);
 
-
+  // TODO: Display errors into popup
   const fetchWeatherWithCurrentLocation = () => {
-    console.log('invoked')
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position["coords"];
-          setCurrentLocation({ latitude, longitude });
 
           const weatherData = await extractWeatherData({ latitude, longitude });
-          return weatherData
-
+          setWeatherData(weatherData);
         },
         (error) => {
+          // warning popup or/and set variable to false and disable location btn fetch with Paris param
           console.log("There is problem getting user location.");
         })
     } else {
+      // warning popup or/and set variable to false and disable location btn fetch with Paris param
       console.log("Geolocation is not available.");
     }
-  }
+  };
 
-  // TODO: Display errors into popup
+  const searchWeatherFormSubmitHandler = async (e, searchedLocation) => {
+    e.preventDefault();
+    const weatherData = await extractWeatherData(searchedLocation);
+    setWeatherData(weatherData)
+  };
 
-
-  // const processWeatherData = async (currentLocation) => {
-  //   try {
-  //     const weatherData = await extractWeatherData(currentLocation);
-  //     setWeatherData(weatherData);
-  //   } catch (error) {
-  //     console.log(error.message)
-  //   }
-  // }
   return (
     <>
 
@@ -59,7 +50,7 @@ function App() {
         ) : (
           <>
             <header>
-              <Navbar fetchWeatherWithCurrentLocation={fetchWeatherWithCurrentLocation} />
+              <Navbar fetchWeatherWithCurrentLocation={fetchWeatherWithCurrentLocation} searchWeatherFormSubmitHandler={searchWeatherFormSubmitHandler} />
             </header>
             <main>
 
