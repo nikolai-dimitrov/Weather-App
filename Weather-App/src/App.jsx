@@ -8,6 +8,7 @@ import './App.css'
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [weatherData, setWeatherData] = useState(null);
+  const [disableLocationBtn, setDisableLocationBtn] = useState(false);
 
   useEffect(() => {
     const timeOut = setTimeout(() => setIsLoading(false), 4000);
@@ -16,7 +17,7 @@ function App() {
   }, []);
 
   // TODO: Display errors into popup
-  const fetchWeatherWithCurrentLocation = () => {
+  const fetchWeatherWithCurrentLocation = async () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
@@ -25,13 +26,11 @@ function App() {
           const weatherData = await extractWeatherData({ latitude, longitude });
           setWeatherData(weatherData);
         },
-        (error) => {
-          // warning popup or/and set variable to false and disable location btn fetch with Paris param
-          console.log("There is problem getting user location.");
-        })
-    } else {
-      // warning popup or/and set variable to false and disable location btn fetch with Paris param
-      console.log("Geolocation is not available.");
+        async (error) => {
+          const weatherData = await extractWeatherData({ location: "London" });
+          setWeatherData(weatherData);
+          setDisableLocationBtn(true);
+        });
     }
   };
 
@@ -41,6 +40,7 @@ function App() {
     setWeatherData(weatherData)
   };
 
+  console.log(weatherData)
   return (
     <>
 
@@ -50,7 +50,7 @@ function App() {
         ) : (
           <>
             <header>
-              <Navbar fetchWeatherWithCurrentLocation={fetchWeatherWithCurrentLocation} searchWeatherFormSubmitHandler={searchWeatherFormSubmitHandler} />
+              <Navbar fetchWeatherWithCurrentLocation={fetchWeatherWithCurrentLocation} searchWeatherFormSubmitHandler={searchWeatherFormSubmitHandler} disableLocationBtn={disableLocationBtn} />
             </header>
             <main>
 

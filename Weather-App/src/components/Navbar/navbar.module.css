@@ -57,6 +57,11 @@ nav {
 	opacity: 0.35;
 }
 
+.searchForm .locationBtn:disabled {
+	color: gray;
+	cursor:initial;
+}
+
 .metricsContainer button {
 	border: none;
 	background-color: transparent;
