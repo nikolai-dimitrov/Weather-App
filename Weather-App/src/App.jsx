@@ -3,6 +3,7 @@ import { Navbar } from './components/Navbar/Navbar';
 import { OpeningAnimation } from './components/OpeningAnimation/OpeningAnimation';
 
 import { extractWeatherData } from './services/weatherApiService';
+import { validateWeatherForm } from './validators/validateWeatherForm';
 import './App.css'
 
 function App() {
@@ -36,6 +37,12 @@ function App() {
 
   const searchWeatherFormSubmitHandler = async (e, searchedLocation) => {
     e.preventDefault();
+
+    const isValid = validateWeatherForm(searchedLocation.location)
+    if (!isValid) {
+      return
+    }
+
     const weatherData = await extractWeatherData(searchedLocation);
     setWeatherData(weatherData)
   };
