@@ -1,11 +1,16 @@
 import { Popup } from "../Popup/Popup";
 
+import { AnimatePresence } from "motion/react";
+
 import styles from "./main.module.css";
 export const Main = ({ error, clearError }) => {
     return (
         <>
             <section>
-                {error && <Popup message={error} clearError={clearError} />}
+                <AnimatePresence>
+                    {error && <Popup message={error} clearError={clearError} />}
+                </AnimatePresence>
+
                 <h1>Main section</h1>
             </section>
         </>
