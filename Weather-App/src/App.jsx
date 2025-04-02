@@ -23,9 +23,12 @@ function App() {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position["coords"];
-
-          const weatherData = await extractWeatherData({ latitude, longitude });
-          setWeatherData(weatherData);
+          try {
+            const weatherData = await extractWeatherData({ latitude, longitude });
+            setWeatherData(weatherData);
+          } catch (error) {
+            console.log(error.message)
+          }
         },
         async (error) => {
           const weatherData = await extractWeatherData({ location: "London" });
@@ -37,14 +40,17 @@ function App() {
 
   const searchWeatherFormSubmitHandler = async (e, searchedLocation) => {
     e.preventDefault();
-
     const isValid = validateWeatherForm(searchedLocation.location)
     if (!isValid) {
       return
     }
+    try {
+      const weatherData = await extractWeatherData(searchedLocation);
+      setWeatherData(weatherData)
+    } catch (error) {
+      console.log(error.message, 'component APP')
+    }
 
-    const weatherData = await extractWeatherData(searchedLocation);
-    setWeatherData(weatherData)
   };
 
   console.log(weatherData)
