@@ -1,0 +1,32 @@
+.popupContainer {
+	background-color: #fff;
+	max-width: 330px;
+	border-radius: 8px;
+	padding: 12px 10px;
+	color: black;
+	font-weight: bold;
+	letter-spacing: 0.5px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.messageWrapper {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.popupContainer svg {
+	color: red;
+}
+
+.popupContainer button {
+	border: unset;
+	background: transparent;
+	cursor: pointer;
+}
+
+.popupContainer button:hover {
+	opacity: 0.5;
+}

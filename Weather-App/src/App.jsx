@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar/Navbar';
+import { Main } from './components/Main/Main';
 import { OpeningAnimation } from './components/OpeningAnimation/OpeningAnimation';
 
 import { extractWeatherData } from './services/weatherApiService';
@@ -10,6 +11,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [weatherData, setWeatherData] = useState(null);
   const [disableLocationBtn, setDisableLocationBtn] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const timeOut = setTimeout(() => setIsLoading(false), 4000);
@@ -26,10 +28,12 @@ function App() {
           try {
             const weatherData = await extractWeatherData({ latitude, longitude });
             setWeatherData(weatherData);
+            setError(null);
           } catch (error) {
-            console.log(error.message)
+            setError(error.message);
           }
         },
+        // TODO: Show error for geolocation if no available
         async (error) => {
           const weatherData = await extractWeatherData({ location: "London" });
           setWeatherData(weatherData);
@@ -40,20 +44,26 @@ function App() {
 
   const searchWeatherFormSubmitHandler = async (e, searchedLocation) => {
     e.preventDefault();
-    const isValid = validateWeatherForm(searchedLocation.location)
+    const isValid = validateWeatherForm(searchedLocation.location);
     if (!isValid) {
-      return
+      return;
     }
     try {
       const weatherData = await extractWeatherData(searchedLocation);
-      setWeatherData(weatherData)
+      setWeatherData(weatherData);
+      setError(null);
     } catch (error) {
-      console.log(error.message, 'component APP')
+      setError(error.message);
     }
 
   };
 
+  const clearError = () => {
+    setError(null);
+  }
+
   console.log(weatherData)
+  console.log(error)
   return (
     <>
 
@@ -66,7 +76,7 @@ function App() {
               <Navbar fetchWeatherWithCurrentLocation={fetchWeatherWithCurrentLocation} searchWeatherFormSubmitHandler={searchWeatherFormSubmitHandler} disableLocationBtn={disableLocationBtn} />
             </header>
             <main>
-
+              <Main error={error} clearError={clearError} />
             </main>
             <footer>
 
