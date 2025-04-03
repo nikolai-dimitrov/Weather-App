@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { FaCircleExclamation } from "react-icons/fa6";
 import styles from "./popup.module.css";
 export const Popup = ({ message, clearError }) => {
+    // console.log(window.innerWidth)
     return (
         <>
             <motion.div
@@ -16,11 +17,11 @@ export const Popup = ({ message, clearError }) => {
 
                 initial={{
                     x: "100vw",
+
                 }}
 
                 animate={{
-                    x: "1110px",
-
+                    x: "0vw",
                 }}
 
                 exit={{
