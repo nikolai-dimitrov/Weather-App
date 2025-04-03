@@ -32,11 +32,11 @@ function App() {
             setError(error.message);
           }
         },
-        // TODO: Show error for geolocation if no available
         async (error) => {
           const weatherData = await extractWeatherData({ location: "London" });
           setWeatherData(weatherData);
           setDisableLocationBtn(true);
+          setError("Can not access your location!");
         });
     }
   };
@@ -47,7 +47,7 @@ function App() {
     if (!isValid) {
       return;
     }
-    
+
     try {
       const weatherData = await extractWeatherData(searchedLocation);
       setWeatherData(weatherData);

@@ -3,11 +3,10 @@ import { motion } from "motion/react";
 import { FaCircleExclamation } from "react-icons/fa6";
 import styles from "./popup.module.css";
 export const Popup = ({ message, clearError }) => {
-    // console.log(window.innerWidth)
     return (
         <>
             <motion.div
-                key="popup"
+                key={message}
                 transition={{
                     duration: 0.5,
                     type: "spring",

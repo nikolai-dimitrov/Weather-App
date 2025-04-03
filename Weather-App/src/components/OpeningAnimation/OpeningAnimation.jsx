@@ -10,7 +10,6 @@ export const OpeningAnimation = () => {
     const percentRef = useRef(0);
     const maxPercentValue = 100;
 
-    // TODO: RequestAnimationFrame
     useEffect(() => {
         const increasePercent = setInterval(() => {
             if (percentRef.current < maxPercentValue) {
