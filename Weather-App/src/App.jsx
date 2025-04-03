@@ -19,7 +19,6 @@ function App() {
     return () => clearTimeout(timeOut);
   }, []);
 
-  // TODO: Display errors into popup
   const fetchWeatherWithCurrentLocation = async () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -48,10 +47,12 @@ function App() {
     if (!isValid) {
       return;
     }
+    
     try {
       const weatherData = await extractWeatherData(searchedLocation);
       setWeatherData(weatherData);
       setError(null);
+
     } catch (error) {
       setError(error.message);
     }

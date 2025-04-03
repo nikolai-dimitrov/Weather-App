@@ -7,7 +7,7 @@ import { IoMdPartlySunny } from "react-icons/io";
 import styles from "./opening-animation.module.css"
 export const OpeningAnimation = () => {
     const [currentPercent, setCurrentPercent] = useState(0);
-    const percentRef = useRef(0)
+    const percentRef = useRef(0);
     const maxPercentValue = 100;
 
     // TODO: RequestAnimationFrame
@@ -16,14 +16,14 @@ export const OpeningAnimation = () => {
             if (percentRef.current < maxPercentValue) {
                 percentRef.current += 1;
                 if (percentRef.current % 2 === 0) {
-                    setCurrentPercent(percentRef.current)
+                    setCurrentPercent(percentRef.current);
                 }
             } else {
-                clearInterval(increasePercent)
+                clearInterval(increasePercent);
             }
         }, 25)
 
-        return () => clearInterval(increasePercent)
+        return () => clearInterval(increasePercent);
     }, [])
     return (
         <>
