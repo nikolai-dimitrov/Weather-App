@@ -10,6 +10,7 @@ import './App.css'
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [weatherData, setWeatherData] = useState(null);
+  const [unit, setUnit] = useState("C");
   const [disableLocationBtn, setDisableLocationBtn] = useState(false);
   const [error, setError] = useState(null);
 
@@ -63,8 +64,13 @@ function App() {
     setError(null);
   }
 
+  const changeUnitsHandler = (newUnit) => {
+    if (newUnit != unit) {
+      setUnit((state) => (newUnit))
+    }
+  }
+
   console.log(weatherData)
-  console.log(error)
   return (
     <>
 
@@ -74,10 +80,15 @@ function App() {
         ) : (
           <>
             <header>
-              <Navbar fetchWeatherWithCurrentLocation={fetchWeatherWithCurrentLocation} searchWeatherFormSubmitHandler={searchWeatherFormSubmitHandler} disableLocationBtn={disableLocationBtn} />
+              <Navbar
+                fetchWeatherWithCurrentLocation={fetchWeatherWithCurrentLocation}
+                searchWeatherFormSubmitHandler={searchWeatherFormSubmitHandler}
+                disableLocationBtn={disableLocationBtn}
+                changeUnitsHandler={changeUnitsHandler}
+              />
             </header>
             <main>
-              <Main error={error} clearError={clearError} />
+              <Main error={error} clearError={clearError} unit={unit} />
             </main>
             <footer>
 

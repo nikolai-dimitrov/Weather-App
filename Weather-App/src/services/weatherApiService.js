@@ -41,7 +41,9 @@ export const extractWeatherData = async (locationParams) => {
 			current: { humidity },
 			current: { wind_kph },
 			current: { feelslike_c },
+			current: { feelslike_f },
 			current: { temp_c },
+			current: { temp_f },
 			current: {
 				condition: { text },
 			},
@@ -57,6 +59,8 @@ export const extractWeatherData = async (locationParams) => {
 			astro: { sunrise },
 			astro: { sunset },
 			day: { maxtemp_c },
+			day: { maxtemp_f },
+			day: { mintemp_f },
 			day: { mintemp_c },
 		} = forecastday[0];
 
@@ -64,7 +68,9 @@ export const extractWeatherData = async (locationParams) => {
 			humidity,
 			wind_kph,
 			feelslike_c,
+			feelslike_f,
 			temp_c,
+			temp_f,
 			country,
 			region,
 			name,
@@ -74,7 +80,10 @@ export const extractWeatherData = async (locationParams) => {
 			sunrise,
 			sunset,
 			maxtemp_c,
+			maxtemp_f,
 			mintemp_c,
+			mintemp_f,
+			forecastday,
 		};
 	} catch (error) {
 		throw error;

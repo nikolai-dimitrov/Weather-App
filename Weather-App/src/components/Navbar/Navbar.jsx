@@ -6,7 +6,12 @@ import { FaSearch } from "react-icons/fa";
 
 import styles from "./navbar.module.css";
 
-export const Navbar = ({ fetchWeatherWithCurrentLocation, searchWeatherFormSubmitHandler, disableLocationBtn }) => {
+export const Navbar = ({
+    fetchWeatherWithCurrentLocation,
+    searchWeatherFormSubmitHandler,
+    disableLocationBtn,
+    changeUnitsHandler
+}) => {
     const [searchedLocation, setSearchedLocation] = useState({
         location: '',
     });
@@ -41,9 +46,9 @@ export const Navbar = ({ fetchWeatherWithCurrentLocation, searchWeatherFormSubmi
                     </button>
                 </form>
                 <div className={styles.metricsContainer}>
-                    <button>°C</button>
+                    <button onClick={() => changeUnitsHandler("C")}>°C</button>
                     <span>/</span>
-                    <button>°F</button>
+                    <button onClick={() => changeUnitsHandler("F")}>°F</button>
                 </div>
             </nav>
         </>
