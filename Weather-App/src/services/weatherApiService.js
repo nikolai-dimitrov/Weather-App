@@ -1,4 +1,5 @@
 import { formatLocalTime } from "../utils/formatLocalTime";
+import { parseLocalTimePart } from "../utils/formatLocalTime";
 
 const API_KEY = "bdf42325dd664721bf0112934252503"; //3
 const BASE_URL = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}`;
@@ -48,7 +49,7 @@ export const extractWeatherData = async (locationParams) => {
 			current: { temp_c },
 			current: { temp_f },
 			current: {
-				condition: { text },
+				condition: { text, icon },
 			},
 
 			location: { country },
@@ -68,6 +69,16 @@ export const extractWeatherData = async (locationParams) => {
 		} = forecastday[0];
 
 		const formattedLocaltime = formatLocalTime(localtime);
+		const threeDaysForecast = forecastday.map((currentDay) => {
+			// format date for next 3 days forecast
+			const formattedDate = parseLocalTimePart(currentDay.date, {
+				weekday: "short",
+			});
+
+			currentDay.date = formattedDate;
+			return currentDay;
+		});
+		console.log(icon)
 		return {
 			humidity,
 			wind_kph,
@@ -80,17 +91,15 @@ export const extractWeatherData = async (locationParams) => {
 			name,
 			formattedLocaltime,
 			text,
-			forecastday,
+			threeDaysForecast,
 			sunrise,
 			sunset,
 			maxtemp_c,
 			maxtemp_f,
 			mintemp_c,
 			mintemp_f,
-			forecastday,
 		};
 	} catch (error) {
-		console.log(error);
 		throw error;
 	}
 };

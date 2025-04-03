@@ -1,5 +1,6 @@
 // Local time comes from api in the following format: 2025-04-03 16:53
-const parseLocalTimePart = (localtime, options) => {
+export const parseLocalTimePart = (localtime, options) => {
+	// Format month or day from digits to its name.
 	const dateAsName = Intl.DateTimeFormat("en-US", options).format(
 		new Date(localtime)
 	);
