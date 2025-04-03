@@ -1,3 +1,5 @@
+import { formatLocalTime } from "../utils/formatLocalTime";
+
 const API_KEY = "bdf42325dd664721bf0112934252503"; //3
 const BASE_URL = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}`;
 
@@ -34,6 +36,7 @@ export const extractWeatherData = async (locationParams) => {
 	} else if (locationParams.hasOwnProperty("location")) {
 		queryString = `${locationParams.location}`;
 	}
+
 	try {
 		const weatherData = await fetchWeatherData(queryString);
 
@@ -64,6 +67,8 @@ export const extractWeatherData = async (locationParams) => {
 			day: { mintemp_c },
 		} = forecastday[0];
 
+		const formattedLocaltime = formatLocalTime(localtime);
+
 		return {
 			humidity,
 			wind_kph,
@@ -74,7 +79,7 @@ export const extractWeatherData = async (locationParams) => {
 			country,
 			region,
 			name,
-			localtime,
+			formattedLocaltime,
 			text,
 			forecastday,
 			sunrise,
@@ -86,6 +91,7 @@ export const extractWeatherData = async (locationParams) => {
 			forecastday,
 		};
 	} catch (error) {
+		console.log(error);
 		throw error;
 	}
 };
