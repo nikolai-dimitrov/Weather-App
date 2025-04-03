@@ -68,7 +68,6 @@ export const extractWeatherData = async (locationParams) => {
 		} = forecastday[0];
 
 		const formattedLocaltime = formatLocalTime(localtime);
-
 		return {
 			humidity,
 			wind_kph,
