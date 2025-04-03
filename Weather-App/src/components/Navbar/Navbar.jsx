@@ -21,6 +21,10 @@ export const Navbar = ({
 
     };
 
+    const clearInput = () => {
+        setSearchedLocation((state) => ({ location: '' }))
+    }
+
     return (
         <>
             <nav>
@@ -28,9 +32,9 @@ export const Navbar = ({
                     <IoMdPartlySunny size={50} />
                     <span>WeatherNow</span>
                 </div>
-                <form className={styles.searchForm} onSubmit={(e) => searchWeatherFormSubmitHandler(e, searchedLocation)}>
+                <form className={styles.searchForm} onSubmit={(e) => searchWeatherFormSubmitHandler(e, searchedLocation, clearInput)}>
                     <div className={styles.inputWrapper}>
-                        <input type="text" placeholder="Search Locations" name="city" onChange={onChangeHandler} />
+                        <input type="text" placeholder="Search Locations" name="city" onChange={onChangeHandler} value={searchedLocation.location} />
                         <button className={styles.searchBtn} type="submit">
                             <FaSearch size={20} />
                         </button>

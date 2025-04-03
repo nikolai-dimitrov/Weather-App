@@ -42,7 +42,7 @@ function App() {
     }
   };
 
-  const searchWeatherFormSubmitHandler = async (e, searchedLocation) => {
+  const searchWeatherFormSubmitHandler = async (e, searchedLocation, clearInput) => {
     e.preventDefault();
     const isValid = validateWeatherForm(searchedLocation.location);
     if (!isValid) {
@@ -53,7 +53,7 @@ function App() {
       const weatherData = await extractWeatherData(searchedLocation);
       setWeatherData(weatherData);
       setError(null);
-
+      clearInput();
     } catch (error) {
       setError(error.message);
     }
