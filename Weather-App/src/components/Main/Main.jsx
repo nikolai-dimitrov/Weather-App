@@ -88,9 +88,32 @@ export const Main = ({ error,
                     <ul>
                         {threeDaysForecast?.map((dailyWeatherData, index) =>
                             <li key={index}>
-                                <ForecastCard unit={unit} {...dailyWeatherData} />
+                                <ForecastCard
+                                    unit={unit}
+                                    date={dailyWeatherData.date}
+                                    icon={dailyWeatherData.day.condition.icon}
+                                    avgTempC={dailyWeatherData.day.avgtemp_c}
+                                    avgTempF={dailyWeatherData.day.avgtemp_f}
+                                />
                             </li>
-
+                        )}
+                    </ul>
+                </div>
+                <div className={styles.weeklyForecastContainer}>
+                    <h2>Hourly Forecast</h2>
+                    <ul>
+                        {threeDaysForecast[0]?.hour?.map((currentHour, index) =>
+                            index == 2 || index == 8 || index == 12 || index == 18 || index == 21  ?
+                                <li key={index}>
+                                    <ForecastCard
+                                        unit={unit}
+                                        icon={currentHour.condition.icon}
+                                        time={currentHour.time.split(' ')[1]}
+                                        tempC={currentHour.temp_c}
+                                        tempF={currentHour.temp_f}
+                                    />
+                                </li>
+                                : null
                         )}
                     </ul>
                 </div>

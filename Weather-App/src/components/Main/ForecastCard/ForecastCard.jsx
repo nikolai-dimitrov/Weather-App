@@ -1,21 +1,23 @@
 import styles from "./forecast-card.module.css";
 export const ForecastCard = ({
     unit,
+    avgTempC,
+    avgTempF,
+    tempC,
+    tempF,
     date,
-    day: {
-        avgtemp_c,
-        avgtemp_f,
-        condition: {
-            icon,
-        }
-    },
+    time,
+    icon
 
 }) => {
+    const tempCelsius = avgTempC || tempC;
+    const tempFahrenheit = avgTempF || tempF;
+    const dateTime = date || time;
     return (
         <div>
-            <p>{date}</p>
+            <p>{dateTime}</p>
             <img src={icon} alt="Weather img" />
-            <p>{unit === "C" ? `${avgtemp_c}° C` : `${avgtemp_f} °F`}</p>
+            <p>{unit === "C" ? `${tempCelsius}° C` : `${tempFahrenheit} °F`}</p>
         </div>
     )
 }

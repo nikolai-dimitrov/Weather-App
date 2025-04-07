@@ -98,7 +98,7 @@ export const extractWeatherData = async (locationParams) => {
 			maxtemp_f,
 			mintemp_c,
 			mintemp_f,
-			icon
+			icon,
 		};
 	} catch (error) {
 		throw error;
