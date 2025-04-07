@@ -7,12 +7,17 @@ section {
 	text-align: center;
 }
 
+.todayWeatherContainer {
+	max-width: 600px;
+	margin: 0 auto 60px auto;
+}
+
 .todayWeatherContainer span {
 	font-weight: bold;
 }
 
 .todayWeatherContainer > p {
-    font-weight: 500;
+	font-weight: 500;
 	font-size: 20px;
 	margin-bottom: 20px;
 }
@@ -75,4 +80,21 @@ section {
 .astrologyContainer li:not(:last-child) {
 	border-right: 1px solid #fff;
 	padding-right: 10px;
+}
+
+.weeklyForecastContainer {
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.weeklyForecastContainer h2 {
+    text-align: left;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #fff;
+}
+
+.weeklyForecastContainer ul {
+    display: flex;
+    justify-content: space-between;
 }

@@ -1,3 +1,4 @@
+import { ForecastCard } from "./ForecastCard/ForecastCard";
 import { Popup } from "../Popup/Popup";
 
 import { AnimatePresence } from "motion/react";
@@ -17,7 +18,6 @@ export const Main = ({ error,
     temp_c,
     temp_f,
     country,
-    region,
     name,
     formattedLocaltime,
     text,
@@ -29,6 +29,7 @@ export const Main = ({ error,
     mintemp_c,
     mintemp_f,
     icon }) => {
+    console.log(threeDaysForecast)
     return (
         <>
             <section>
@@ -80,6 +81,17 @@ export const Main = ({ error,
                             <FaTemperatureArrowDown />
                             <p>Low: <span>{unit === "C" ? `${mintemp_c}° C` : `${mintemp_f}° F`}</span></p>
                         </li>
+                    </ul>
+                </div>
+                <div className={styles.weeklyForecastContainer}>
+                    <h2>Three Days Forecast</h2>
+                    <ul>
+                        {threeDaysForecast?.map((dailyWeatherData, index) =>
+                            <li key={index}>
+                                <ForecastCard unit={unit} {...dailyWeatherData} />
+                            </li>
+
+                        )}
                     </ul>
                 </div>
             </section>
