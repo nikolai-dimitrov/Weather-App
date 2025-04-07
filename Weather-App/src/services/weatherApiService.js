@@ -78,7 +78,7 @@ export const extractWeatherData = async (locationParams) => {
 			currentDay.date = formattedDate;
 			return currentDay;
 		});
-		console.log(icon)
+
 		return {
 			humidity,
 			wind_kph,
@@ -98,6 +98,7 @@ export const extractWeatherData = async (locationParams) => {
 			maxtemp_f,
 			mintemp_c,
 			mintemp_f,
+			icon
 		};
 	} catch (error) {
 		throw error;
