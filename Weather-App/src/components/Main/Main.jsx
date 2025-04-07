@@ -41,12 +41,12 @@ export const Main = ({ error,
                     <p>{text}</p>
                     <div className={styles.weatherDescriptionContainer}>
                         <img src={icon} alt="" />
-                        <p>{temp_c}°</p>
+                        <p>{unit === "C" ? `${temp_c}° C` : `${temp_f} °F`}</p>
                         <ul>
                             <li>
                                 <FaTemperatureFull />
                                 <p>
-                                    Real fell: <span>{feelslike_c}°</span>
+                                    Real fell: <span>{unit === "C" ? `${feelslike_c}° C` : `${feelslike_f}° F`}</span>
                                 </p>
                             </li>
                             <li>
@@ -74,11 +74,11 @@ export const Main = ({ error,
                         </li>
                         <li>
                             <FaTemperatureArrowUp />
-                            <p>High: <span>{maxtemp_c}</span></p>
+                            <p>High: <span>{unit === "C" ? `${maxtemp_c}° C` : `${maxtemp_f}° F`}</span></p>
                         </li>
                         <li>
                             <FaTemperatureArrowDown />
-                            <p>Low: <span>{mintemp_c}</span></p>
+                            <p>Low: <span>{unit === "C" ? `${mintemp_c}° C` : `${mintemp_f}° F`}</span></p>
                         </li>
                     </ul>
                 </div>
