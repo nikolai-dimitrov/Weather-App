@@ -10,7 +10,7 @@ export const Navbar = ({
     fetchWeatherWithCurrentLocation,
     searchWeatherFormSubmitHandler,
     disableLocationBtn,
-    changeUnitsHandler
+    changeUnits
 }) => {
     const [searchedLocation, setSearchedLocation] = useState({
         location: '',
@@ -50,9 +50,9 @@ export const Navbar = ({
                     </button>
                 </form>
                 <div className={styles.metricsContainer}>
-                    <button onClick={() => changeUnitsHandler("C")}>°C</button>
+                    <button onClick={() => changeUnits("C")}>°C</button>
                     <span>/</span>
-                    <button onClick={() => changeUnitsHandler("F")}>°F</button>
+                    <button onClick={() => changeUnits("F")}>°F</button>
                 </div>
             </nav>
         </>

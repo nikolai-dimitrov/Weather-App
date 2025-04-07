@@ -64,7 +64,7 @@ function App() {
     setError(null);
   }
 
-  const changeUnitsHandler = (newUnit) => {
+  const changeUnits = (newUnit) => {
     if (newUnit != unit) {
       setUnit((state) => (newUnit))
     }
@@ -84,11 +84,11 @@ function App() {
                 fetchWeatherWithCurrentLocation={fetchWeatherWithCurrentLocation}
                 searchWeatherFormSubmitHandler={searchWeatherFormSubmitHandler}
                 disableLocationBtn={disableLocationBtn}
-                changeUnitsHandler={changeUnitsHandler}
+                changeUnits={changeUnits}
               />
             </header>
             <main>
-              <Main error={error} clearError={clearError} unit={unit} />
+              <Main error={error} clearError={clearError} unit={unit} {...weatherData} />
             </main>
             <footer>
 
