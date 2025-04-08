@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar/Navbar';
-import { Main } from './components/Main/Main';
+import { Home } from './components/Home/Home';
 import { OpeningAnimation } from './components/OpeningAnimation/OpeningAnimation';
 
 import { extractWeatherData } from './services/weatherApiService';
@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     const timeOut = setTimeout(() => setIsLoading(false), 4000);
-    fetchWeatherWithCurrentLocation()
+    fetchWeatherWithCurrentLocation();
     return () => clearTimeout(timeOut);
   }, []);
 
@@ -66,7 +66,7 @@ function App() {
 
   const changeUnits = (newUnit) => {
     if (newUnit != unit) {
-      setUnit((state) => (newUnit))
+      setUnit((state) => (newUnit));
     }
   }
 
@@ -87,7 +87,7 @@ function App() {
               />
             </header>
             <main>
-              <Main error={error} clearError={clearError} unit={unit} {...weatherData} />
+              <Home error={error} clearError={clearError} unit={unit} {...weatherData} />
             </main>
             <footer>
 

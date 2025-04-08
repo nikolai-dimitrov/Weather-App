@@ -1,6 +1,6 @@
-import { ForecastCard } from "./ForecastCard/ForecastCard";
+import { ForecastCard } from "../ForecastCard/ForecastCard";
 import { Popup } from "../Popup/Popup";
-import { parseLocalTimePart, formatLocalTime } from "../../utils/formatLocalTime";
+import { formatLocalTime } from "../../utils/formatLocalTime";
 
 import { AnimatePresence } from "motion/react";
 import { FaTemperatureFull, FaWind, FaTemperatureArrowDown, FaTemperatureArrowUp } from "react-icons/fa6";
@@ -10,8 +10,8 @@ import { FiSunrise, FiSunset } from "react-icons/fi";
 
 
 
-import styles from "./main.module.css";
-export const Main = ({ error,
+import styles from "./home.module.css";
+export const Home = ({ error,
     clearError,
     unit,
     humidity,
