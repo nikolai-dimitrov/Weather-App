@@ -70,7 +70,6 @@ function App() {
     }
   }
 
-  console.log(weatherData)
   return (
     <>
 

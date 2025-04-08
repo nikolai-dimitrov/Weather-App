@@ -56,9 +56,11 @@ export const extractWeatherData = async (locationParams) => {
 			location: { localtime },
 			location: { region },
 			location: { name },
+
 			forecast: { forecastday },
 		} = weatherData;
 
+		const forecastToday = weatherData.forecast.forecastday[0];
 		const {
 			astro: { sunrise },
 			astro: { sunset },
@@ -66,18 +68,7 @@ export const extractWeatherData = async (locationParams) => {
 			day: { maxtemp_f },
 			day: { mintemp_f },
 			day: { mintemp_c },
-		} = forecastday[0];
-
-		const formattedLocaltime = formatLocalTime(localtime);
-		const threeDaysForecast = forecastday.map((currentDay) => {
-			// format date for next 3 days forecast
-			const formattedDate = parseLocalTimePart(currentDay.date, {
-				weekday: "short",
-			});
-
-			currentDay.date = formattedDate;
-			return currentDay;
-		});
+		} = forecastToday;
 
 		return {
 			humidity,
@@ -89,9 +80,9 @@ export const extractWeatherData = async (locationParams) => {
 			country,
 			region,
 			name,
-			formattedLocaltime,
+			localtime,
 			text,
-			threeDaysForecast,
+			forecastday,
 			sunrise,
 			sunset,
 			maxtemp_c,
