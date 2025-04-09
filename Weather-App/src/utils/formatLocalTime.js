@@ -1,14 +1,16 @@
 // Local time comes from api in the following format: 2025-04-03 16:53
 export const parseLocalTimePart = (localtime, options) => {
 	// Format month or day from digits to its name.
-	const dateAsName = Intl.DateTimeFormat("en-US", options).format(
-		new Date(localtime)
-	);
-	return dateAsName;
+	if (localtime) {
+		const dateAsName = Intl.DateTimeFormat("en-US", options).format(
+			new Date(localtime)
+		);
+		return dateAsName;
+	}
 };
 
 export const formatLocalTime = (localtime) => {
-	const dateArray = localtime.split(" ")[0].split("-");
+	const dateArray = localtime?.split(" ")[0].split("-") ?? [];
 	const [year, , day] = dateArray;
 
 	const dayName = parseLocalTimePart(localtime, { weekday: "long" });
