@@ -1,3 +1,7 @@
+.cursorPointer {
+	cursor: pointer;
+}
+
 p:last-child {
-    font-weight: bold;
+	font-weight: bold;
 }
