@@ -8,14 +8,14 @@ import { validateWeatherForm } from './validators/validateWeatherForm';
 import './App.css'
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [showOpeningAnimation, setShowOpeningAnimation] = useState(true);
   const [weatherData, setWeatherData] = useState(null);
   const [unit, setUnit] = useState("C");
   const [disableLocationBtn, setDisableLocationBtn] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const timeOut = setTimeout(() => setIsLoading(false), 4000);
+    const timeOut = setTimeout(() => setShowOpeningAnimation(false), 4000);
     fetchWeatherWithCurrentLocation();
     return () => clearTimeout(timeOut);
   }, []);
@@ -74,7 +74,7 @@ function App() {
     <>
 
       {
-        isLoading ? (
+        showOpeningAnimation ? (
           <OpeningAnimation />
         ) : (
           <>
