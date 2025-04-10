@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
-import { ForecastCard } from "../ForecastCard/ForecastCard";
+import { WeeklyForecast } from "../WeeklyForecast/WeeklyForecast";
+import { HourlyForecast } from "../HourlyForecast/HourlyForecast";
 import { Popup } from "../Popup/Popup";
 
 import { formatLocalTime, parseLocalTimePart } from "../../utils/formatLocalTime";
@@ -35,8 +36,10 @@ export const Home = ({ error,
     const [selectedDay, setSelectedDay] = useState(0);
 
     const formattedLocalTimeString = formatLocalTime(localtime);
+    // It parses date to corresponding short day name.
+    const dayName = parseLocalTimePart(forecastday[selectedDay].date, { weekday: "short" })
+
     const filteredHours = forecastday[selectedDay]?.hour?.filter((el, index) => [2, 8, 12, 18, 21].includes(index));
-    const formattedDay = parseLocalTimePart(forecastday[selectedDay].date, { weekday: "short" })
 
     const changeHourlyForecastHandler = (forecastDayIndex) => {
         setSelectedDay(forecastDayIndex);
@@ -95,40 +98,13 @@ export const Home = ({ error,
                         </li>
                     </ul>
                 </div>
-                <div className={styles.weeklyForecastContainer}>
+                <div className={styles.forecastContainer}>
                     <h2>Three Days Forecast</h2>
-                    <ul>
-                        {forecastday?.map((dailyWeatherData, index) =>
-                            <li key={index}>
-                                <ForecastCard
-                                    index={index}
-                                    unit={unit}
-                                    dateTime={dailyWeatherData.date}
-                                    icon={dailyWeatherData.day.condition.icon}
-                                    avgTempC={dailyWeatherData.day.avgtemp_c}
-                                    avgTempF={dailyWeatherData.day.avgtemp_f}
-                                    changeHourlyForecastHandler={changeHourlyForecastHandler}
-                                    isClickable={true}
-                                />
-                            </li>
-                        )}
-                    </ul>
+                    <WeeklyForecast forecastday={forecastday} unit={unit} changeHourlyForecastHandler={changeHourlyForecastHandler} />
                 </div>
-                <div className={styles.weeklyForecastContainer}>
-                    <h2>Hourly Forecast - {formattedDay}</h2>
-                    <ul>
-                        {filteredHours?.map((currentHour, index) =>
-                            <li key={index}>
-                                <ForecastCard
-                                    unit={unit}
-                                    icon={currentHour.condition.icon}
-                                    dateTime={currentHour.time.split(' ')[1]}
-                                    tempC={currentHour.temp_c}
-                                    tempF={currentHour.temp_f}
-                                />
-                            </li>
-                        )}
-                    </ul>
+                <div className={styles.forecastContainer}>
+                    <h2>Hourly Forecast - {dayName}</h2>
+                    <HourlyForecast filteredHours={filteredHours} unit={unit} />
                 </div>
             </section>
         </>

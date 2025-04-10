@@ -82,19 +82,19 @@ section {
 	padding-right: 10px;
 }
 
-.weeklyForecastContainer {
+.forecastContainer {
 	max-width: 600px;
 	margin: 0 auto 50px auto;
 }
 
-.weeklyForecastContainer h2 {
+.forecastContainer h2 {
     text-align: left;
     padding-bottom: 10px;
     margin-bottom: 10px;
     border-bottom: 1px solid #fff;
 }
 
-.weeklyForecastContainer ul {
+.forecastContainer ul {
     display: flex;
     justify-content: space-between;
 }
