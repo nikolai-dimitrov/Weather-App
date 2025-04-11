@@ -1,8 +1,8 @@
-
+import { memo } from "react";
 import { parseLocalTimePart } from "../../utils/formatLocalTime";
 
 import styles from "./weekly-forecast.module.css";
-export const WeeklyForecast = ({ forecastday, unit, changeHourlyForecastHandler }) => {
+export const WeeklyForecast = memo(({ forecastday, unit, changeHourlyForecastHandler }) => {
     return (
         <ul>
             {forecastday?.map((dailyWeatherData, index) => {
@@ -17,4 +17,4 @@ export const WeeklyForecast = ({ forecastday, unit, changeHourlyForecastHandler 
             }
         </ul >
     )
-}
+})

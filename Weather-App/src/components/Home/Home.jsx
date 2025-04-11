@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useMemo, useCallback } from "react";
 
 import { WeeklyForecast } from "../WeeklyForecast/WeeklyForecast";
 import { HourlyForecast } from "../HourlyForecast/HourlyForecast";
@@ -36,14 +36,15 @@ export const Home = ({ error,
     const [selectedDay, setSelectedDay] = useState(0);
 
     const formattedLocalTimeString = formatLocalTime(localtime);
-    // It parses date to corresponding short day name.
+    // It parses date to corresponding short day name. - Wed
     const dayName = parseLocalTimePart(forecastday[selectedDay].date, { weekday: "short" })
 
-    const filteredHours = forecastday[selectedDay]?.hour?.filter((el, index) => [2, 8, 12, 18, 21].includes(index));
+    const filteredHours = useMemo(() =>
+        forecastday[selectedDay]?.hour?.filter((el, index) => [2, 8, 12, 18, 21].includes(index)), [forecastday, selectedDay])
 
-    const changeHourlyForecastHandler = (forecastDayIndex) => {
+    const changeHourlyForecastHandler = useCallback((forecastDayIndex) => {
         setSelectedDay(forecastDayIndex);
-    }
+    }, [forecastday])
 
     return (
         <>
