@@ -10,65 +10,69 @@ import './App.css'
 function App() {
   const [showOpeningAnimation, setShowOpeningAnimation] = useState(true);
   const [weatherData, setWeatherData] = useState(null);
+  const [queryString, setQueryString] = useState(null);
   const [unit, setUnit] = useState("C");
   const [disableLocationBtn, setDisableLocationBtn] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const timeOut = setTimeout(() => setShowOpeningAnimation(false), 4000);
-    fetchWeatherWithCurrentLocation();
+    updateQueryByGeolocation();
     return () => clearTimeout(timeOut);
   }, []);
 
-  const fetchWeatherWithCurrentLocation = async () => {
+  useEffect(() => {
+    const fetchAndUpdateWeather = async () => {
+      try {
+        const data = await extractWeatherData(queryString);
+        setWeatherData(data);
+        setError(null);
+      } catch (error) {
+        setError(error.message);
+      };
+    };
+    fetchAndUpdateWeather();
+  }, [queryString])
+
+  const updateQueryByGeolocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        async (position) => {
+        (position) => {
           const { latitude, longitude } = position["coords"];
-          try {
-            const weatherData = await extractWeatherData({ latitude, longitude });
-            setWeatherData(weatherData);
-            setError(null);
-          } catch (error) {
-            setError(error.message);
-          }
+          setQueryString((queryString) => (`${latitude}, ${longitude}`));
         },
-        async (error) => {
-          const weatherData = await extractWeatherData({ location: "London" });
-          setWeatherData(weatherData);
+        (error) => {
+          setQueryString((queryString) => ('London'));
           setDisableLocationBtn(true);
           setError("Can not access your location!");
-        });
-    }
+        }
+      )
+    };
   };
 
-  const searchWeatherFormSubmitHandler = async (e, searchedLocation, clearInput) => {
+  const searchFormSubmitHandler = (e, searchedLocation, clearInput) => {
     e.preventDefault();
     const isValid = validateWeatherForm(searchedLocation.location);
     if (!isValid) {
       return;
     }
-
-    try {
-      const weatherData = await extractWeatherData(searchedLocation);
-      setWeatherData(weatherData);
-      setError(null);
-      clearInput();
-    } catch (error) {
-      setError(error.message);
-    }
-
+    setQueryString((queryString) => (searchedLocation.location));
+    clearInput();
   };
+
+  const geoLocationBtnClickHandler = () => {
+    updateQueryByGeolocation();
+  }
 
   const clearError = () => {
     setError(null);
-  }
+  };
 
   const changeUnits = (newUnit) => {
     if (newUnit != unit) {
       setUnit((state) => (newUnit));
-    }
-  }
+    };
+  };
 
   return (
     <>
@@ -80,8 +84,8 @@ function App() {
           <>
             <header>
               <Navbar
-                fetchWeatherWithCurrentLocation={fetchWeatherWithCurrentLocation}
-                searchWeatherFormSubmitHandler={searchWeatherFormSubmitHandler}
+                geoLocationBtnClickHandler={geoLocationBtnClickHandler}
+                searchFormSubmitHandler={searchFormSubmitHandler}
                 disableLocationBtn={disableLocationBtn}
                 changeUnits={changeUnits}
               />

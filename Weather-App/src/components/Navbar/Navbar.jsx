@@ -7,8 +7,8 @@ import { FaSearch } from "react-icons/fa";
 import styles from "./navbar.module.css";
 
 export const Navbar = ({
-    fetchWeatherWithCurrentLocation,
-    searchWeatherFormSubmitHandler,
+    geoLocationBtnClickHandler,
+    searchFormSubmitHandler,
     disableLocationBtn,
     changeUnits
 }) => {
@@ -32,7 +32,7 @@ export const Navbar = ({
                     <IoMdPartlySunny size={50} />
                     <span>WeatherNow</span>
                 </div>
-                <form className={styles.searchForm} onSubmit={(e) => searchWeatherFormSubmitHandler(e, searchedLocation, clearInput)}>
+                <form className={styles.searchForm} onSubmit={(e) => searchFormSubmitHandler(e, searchedLocation, clearInput)}>
                     <div className={styles.inputWrapper}>
                         <input type="text" placeholder="Search Locations" name="city" onChange={onChangeHandler} value={searchedLocation.location} />
                         <button className={styles.searchBtn} type="submit">
@@ -42,7 +42,7 @@ export const Navbar = ({
                     <button
                         type="button"
                         className={styles.locationBtn}
-                        onClick={fetchWeatherWithCurrentLocation}
+                        onClick={geoLocationBtnClickHandler}
                         disabled={disableLocationBtn}
                     >
                         <BiCurrentLocation size={30}
