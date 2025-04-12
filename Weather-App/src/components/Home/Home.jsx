@@ -12,7 +12,9 @@ import { IoWaterOutline } from "react-icons/io5";
 import { FiSunrise, FiSunset } from "react-icons/fi";
 
 import styles from "./home.module.css";
-export const Home = ({ error,
+export const Home = ({
+    // isLoading,
+    error,
     clearError,
     unit,
     humidity,
@@ -37,14 +39,14 @@ export const Home = ({ error,
 
     const formattedLocalTimeString = formatLocalTime(localtime);
     // It parses date to corresponding short day name. - Wed
-    const dayName = parseLocalTimePart(forecastday[selectedDay].date, { weekday: "short" })
+    const dayName = parseLocalTimePart(forecastday?.[selectedDay].date, { weekday: "short" })
 
     const filteredHours = useMemo(() =>
-        forecastday[selectedDay]?.hour?.filter((el, index) => [2, 8, 12, 18, 21].includes(index)), [forecastday, selectedDay])
+        forecastday?.[selectedDay].hour?.filter((el, index) => [2, 8, 12, 18, 21].includes(index)), [forecastday, selectedDay]);
 
     const changeHourlyForecastHandler = useCallback((forecastDayIndex) => {
         setSelectedDay(forecastDayIndex);
-    }, [forecastday])
+    }, [forecastday]);
 
     return (
         <>
@@ -52,6 +54,8 @@ export const Home = ({ error,
                 <AnimatePresence>
                     {error && <Popup message={error} clearError={clearError} />}
                 </AnimatePresence>
+                {/* {isLoading && <div>Loading skeleton</div>} */}
+
                 <div className={styles.todayWeatherContainer}>
                     <h2 className={styles.subHeading}>{formattedLocalTimeString}</h2>
                     <h1 className={styles.heading}>{name}, {country}</h1>

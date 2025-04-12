@@ -8,24 +8,30 @@ import { validateWeatherForm } from './validators/validateWeatherForm';
 import './App.css'
 
 function App() {
-  const [showOpeningAnimation, setShowOpeningAnimation] = useState(true);
   const [weatherData, setWeatherData] = useState(null);
   const [queryString, setQueryString] = useState(null);
   const [unit, setUnit] = useState("C");
+  const [showOpeningAnimation, setShowOpeningAnimation] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [disableLocationBtn, setDisableLocationBtn] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const timeOut = setTimeout(() => setShowOpeningAnimation(false), 4000);
+    // Get geolocation and update queryString with your current location on component mount.
     updateQueryByGeolocation();
     return () => clearTimeout(timeOut);
   }, []);
 
   useEffect(() => {
     const fetchAndUpdateWeather = async () => {
+      if(!queryString) {
+        return;
+      }
       try {
         const data = await extractWeatherData(queryString);
         setWeatherData(data);
+        setIsLoading(isLoading => false)
         setError(null);
       } catch (error) {
         setError(error.message);
@@ -91,7 +97,7 @@ function App() {
               />
             </header>
             <main>
-              <Home error={error} clearError={clearError} unit={unit} {...weatherData} />
+              <Home error={error} clearError={clearError} unit={unit} {...weatherData} isLoading={isLoading} />
             </main>
             <footer>
 
