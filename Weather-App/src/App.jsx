@@ -25,9 +25,11 @@ function App() {
 
   useEffect(() => {
     const fetchAndUpdateWeather = async () => {
-      if(!queryString) {
+      if (!queryString) {
         return;
       }
+
+      setIsLoading(isLoading => true)
       try {
         const data = await extractWeatherData(queryString);
         setWeatherData(data);
@@ -35,6 +37,7 @@ function App() {
         setError(null);
       } catch (error) {
         setError(error.message);
+        // setIsLoading(isLoading => false)
       };
     };
     fetchAndUpdateWeather();

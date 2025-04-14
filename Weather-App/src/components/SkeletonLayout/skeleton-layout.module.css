@@ -1,0 +1,21 @@
+.mainSkeleton {
+    width: 50px !important;
+}
+
+.skeletonMainDescription{
+    width: 70px !important;
+    height: 38px !important;
+}
+
+.skeletonPrimaryHeading{
+    width: 250px !important;
+}
+
+.skeletonSecondaryHeading {
+    width: 600px !important;
+}
+
+.skeletonSubHeading {
+    width: 130px !important;
+
+}
