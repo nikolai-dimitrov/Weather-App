@@ -1,9 +1,10 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 
 import { WeeklyForecast } from "../WeeklyForecast/WeeklyForecast";
 import { HourlyForecast } from "../HourlyForecast/HourlyForecast";
 import { Popup } from "../Popup/Popup";
 import { SkeletonLayout } from "../SkeletonLayout/SkeletonLayout";
+import Skeleton from "react-loading-skeleton";
 
 import { formatLocalTime, parseLocalTimePart } from "../../utils/formatLocalTime";
 
@@ -12,7 +13,9 @@ import { FaTemperatureFull, FaWind, FaTemperatureArrowDown, FaTemperatureArrowUp
 import { IoWaterOutline } from "react-icons/io5";
 import { FiSunrise, FiSunset } from "react-icons/fi";
 
+import 'react-loading-skeleton/dist/skeleton.css';
 import styles from "./home.module.css";
+import globalStyles from "../../styles/global.module.css"
 export const Home = ({
     isLoading,
     error,
@@ -37,6 +40,11 @@ export const Home = ({
     mintemp_f,
     icon }) => {
     const [selectedDay, setSelectedDay] = useState(0);
+    const [isImageLoading, setIsImageLoading] = useState(true);
+
+    useEffect(() => {
+        setIsImageLoading(true);
+    }, [forecastday]);
 
     const formattedLocalTimeString = formatLocalTime(localtime);
     // It parses date to corresponding short day name. - Wed
@@ -49,9 +57,12 @@ export const Home = ({
         setSelectedDay(forecastDayIndex);
     }, [forecastday]);
 
+    const onLoadImageHandler = () => {
+        setIsImageLoading(false);
+    }
+
     return (
         <>
-
             <section>
                 <AnimatePresence>
                     {error && <Popup message={error} clearError={clearError} />}
@@ -63,7 +74,8 @@ export const Home = ({
                             <h1 className={styles.heading}>{name}, {country}</h1>
                             <p>{text}</p>
                             <div className={styles.weatherDescriptionContainer}>
-                                <img src={icon} alt="" />
+                                {isImageLoading && <Skeleton className={globalStyles.imgSkeletonLarge} />}
+                                <img className={isImageLoading ? globalStyles.displayNone : ''} src={icon} alt="" onLoad={onLoadImageHandler} />
                                 <p>{unit === "C" ? `${temp_c}° C` : `${temp_f} °F`}</p>
                                 <ul>
                                     <li>

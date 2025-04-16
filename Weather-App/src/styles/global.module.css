@@ -1,0 +1,17 @@
+.displayNone {
+	display: none;
+}
+
+.textSkeletonMedium {
+	width: 45px;
+}
+
+.imgSkeletonMedium {
+	width: 70px;
+	height: 45px;
+}
+
+.imgSkeletonLarge {
+	width: 70px;
+	height: 60px;
+}

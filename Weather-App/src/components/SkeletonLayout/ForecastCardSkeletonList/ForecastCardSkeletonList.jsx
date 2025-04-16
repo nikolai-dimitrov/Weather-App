@@ -1,6 +1,7 @@
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css';
 
+import globalStyles from "../../../styles/global.module.css"
 export const ForecastCardSkeletonList = ({ cardsCount, unit }) => {
     return (
         <>
@@ -8,9 +9,9 @@ export const ForecastCardSkeletonList = ({ cardsCount, unit }) => {
                 {[...Array(cardsCount)].map((_, index) => {
                     return <li key={index}>
                         <div>
-                            <p><Skeleton width={40} /></p>
-                            <Skeleton width={70} height={45} />
-                            <p><Skeleton width={40} /> {unit === "C" ? `°C` : `°F`}</p>
+                            <p><Skeleton className={globalStyles.textSkeletonMedium } /></p>
+                            <Skeleton className={globalStyles.imgSkeletonMedium }  />
+                            <p><Skeleton className={globalStyles.textSkeletonMedium }  /> {unit === "C" ? `°C` : `°F`}</p>
                         </div>
                     </li>
                 })

@@ -8,6 +8,7 @@ import { FiSunrise, FiSunset } from "react-icons/fi";
 
 
 import styles from "../Home/home.module.css";
+import globalStyles from "../../styles/global.module.css"
 import skeletonStyles from "./skeleton-layout.module.css";
 import 'react-loading-skeleton/dist/skeleton.css';
 
@@ -20,25 +21,25 @@ export const SkeletonLayout = ({ unit }) => {
                 <h1 className={styles.heading}><Skeleton className={skeletonStyles.skeletonPrimaryHeading} /></h1>
                 <p><Skeleton className={skeletonStyles.skeletonSubHeading} /></p>
                 <div className={styles.weatherDescriptionContainer}>
-                    {<Skeleton className={skeletonStyles.skeletonMainDescription} />}
-                    <p>{<Skeleton className={skeletonStyles.skeletonMainDescription} />} {unit === "C" ? `°C` : `°F`}</p>
+                    {<Skeleton className={globalStyles.imgSkeletonLarge} />}
+                    <p>{<Skeleton className={skeletonStyles.skeletonWeatherText} />} {unit === "C" ? `°C` : `°F`}</p>
                     <ul>
                         <li>
                             <FaTemperatureFull />
                             <p>
-                                Real fell: <span><Skeleton className={skeletonStyles.mainSkeleton} /> {unit === "C" ? `°C` : `°F`}</span>
+                                Real fell: <span><Skeleton className={globalStyles.textSkeletonMedium  } /> {unit === "C" ? `°C` : `°F`}</span>
                             </p>
                         </li>
                         <li>
                             <IoWaterOutline />
                             <p>
-                                Humidity:  <span>{<Skeleton className={skeletonStyles.mainSkeleton} />}%</span>
+                                Humidity:  <span>{<Skeleton className={globalStyles.textSkeletonMedium  } />}%</span>
                             </p>
                         </li>
                         <li>
                             <FaWind />
                             <p>
-                                Wind: <span>{<Skeleton className={skeletonStyles.mainSkeleton} />}km/h</span>
+                                Wind: <span>{<Skeleton className={globalStyles.textSkeletonMedium  } />}km/h</span>
                             </p>
                         </li>
                     </ul>
@@ -46,19 +47,19 @@ export const SkeletonLayout = ({ unit }) => {
                 <ul className={styles.astrologyContainer}>
                     <li>
                         <FiSunrise />
-                        <p>Rise: <span>{<Skeleton className={skeletonStyles.mainSkeleton} />}</span></p>
+                        <p>Rise: <span>{<Skeleton className={globalStyles.textSkeletonMedium  } />}</span></p>
                     </li>
                     <li>
                         <FiSunset />
-                        <p>Set: <span>{<Skeleton className={skeletonStyles.mainSkeleton} />}</span></p>
+                        <p>Set: <span>{<Skeleton className={globalStyles.textSkeletonMedium  } />}</span></p>
                     </li>
                     <li>
                         <FaTemperatureArrowUp />
-                        <p>High: <span> <Skeleton className={skeletonStyles.mainSkeleton} /> {unit === "C" ? `°C` : `°F`}</span></p>
+                        <p>High: <span> <Skeleton className={globalStyles.textSkeletonMedium  } /> {unit === "C" ? `°C` : `°F`}</span></p>
                     </li>
                     <li>
                         <FaTemperatureArrowDown />
-                        <p>Low: <span><Skeleton className={skeletonStyles.mainSkeleton} /> {unit === "C" ? `°C` : `°F`}</span></p>
+                        <p>Low: <span><Skeleton className={globalStyles.textSkeletonMedium  } /> {unit === "C" ? `°C` : `°F`}</span></p>
                     </li>
                 </ul>
             </div>

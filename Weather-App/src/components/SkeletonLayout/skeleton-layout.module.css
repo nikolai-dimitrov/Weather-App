@@ -1,10 +1,6 @@
-.mainSkeleton {
-    width: 50px !important;
-}
-
-.skeletonMainDescription{
-    width: 70px !important;
-    height: 38px !important;
+.skeletonWeatherText {
+    width: 70px;
+    height: 45px;
 }
 
 .skeletonPrimaryHeading{
