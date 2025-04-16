@@ -29,15 +29,14 @@ function App() {
         return;
       }
 
-      setIsLoading(isLoading => true)
+      setIsLoading(isLoading => true);
       try {
         const data = await extractWeatherData(queryString);
         setWeatherData(data);
-        setIsLoading(isLoading => false)
+        setIsLoading(isLoading => false);
         setError(null);
       } catch (error) {
         setError(error.message);
-        // setIsLoading(isLoading => false)
       };
     };
     fetchAndUpdateWeather();
