@@ -1,3 +1,14 @@
+.animationContainer {
+    position: relative;
+    height: 70px;
+}
+
+.skeletonContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 .cursorPointer {
 	cursor: pointer;
 }
