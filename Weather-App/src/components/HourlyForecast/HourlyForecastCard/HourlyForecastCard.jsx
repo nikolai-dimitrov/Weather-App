@@ -20,7 +20,7 @@ export const HourlyForecastCard = ({ unit, currentHourObject }) => {
         <div>
             <p>{time}</p>
             {isImageLoading && <Skeleton className={globalStyles.imgSkeletonMedium} />}
-            <img className={isImageLoading ? globalStyles.displayNone : ''} src={currentHourObject.condition.icon} alt="Weather img" key={currentHourObject.time_epoch}  onLoad={onLoadImageHandler} />
+            <img className={isImageLoading ? globalStyles.displayNone : ''} src={currentHourObject.condition.icon} alt="Weather img" key={currentHourObject.time_epoch} onLoad={onLoadImageHandler} />
             <p>{unit === "C" ? `${currentHourObject.temp_c}° C` : `${currentHourObject.temp_f} °F`}</p>
         </div>
     )

@@ -8,7 +8,7 @@ import Skeleton from "react-loading-skeleton";
 
 import { formatLocalTime, parseLocalTimePart } from "../../utils/formatLocalTime";
 
-import { AnimatePresence } from "motion/react";
+import { AnimatePresence, easeInOut, motion } from "motion/react";
 import { FaTemperatureFull, FaWind, FaTemperatureArrowDown, FaTemperatureArrowUp } from "react-icons/fa6";
 import { IoWaterOutline } from "react-icons/io5";
 import { FiSunrise, FiSunset } from "react-icons/fi";
@@ -67,66 +67,83 @@ export const Home = ({
                 <AnimatePresence>
                     {error && <Popup message={error} clearError={clearError} />}
                 </AnimatePresence>
-                {isLoading ? <SkeletonLayout unit={unit} /> :
-                    <>
-                        <div className={styles.todayWeatherContainer}>
-                            <h2 className={styles.subHeading}>{formattedLocalTimeString}</h2>
-                            <h1 className={styles.heading}>{name}, {country}</h1>
-                            <p>{text}</p>
-                            <div className={styles.weatherDescriptionContainer}>
-                                {isImageLoading && <Skeleton className={globalStyles.imgSkeletonLarge} />}
-                                <img className={isImageLoading ? globalStyles.displayNone : ''} src={icon} alt="" onLoad={onLoadImageHandler} />
-                                <p>{unit === "C" ? `${temp_c}° C` : `${temp_f} °F`}</p>
-                                <ul>
+                <AnimatePresence mode="wait">
+                    {isLoading ? <SkeletonLayout unit={unit} /> :
+                        <motion.div
+                            key="home"
+                            transition={{
+                                duration: 0.3,
+                                ease:easeInOut,
+                            }}
+
+                            initial={{
+                                opacity: 0,
+                            }}
+
+                            animate={{
+                                opacity: 1,
+                            }}
+                        >
+                            <div className={styles.todayWeatherContainer}>
+                                <h2 className={styles.subHeading}>{formattedLocalTimeString}</h2>
+                                <h1 className={styles.heading}>{name}, {country}</h1>
+                                <p>{text}</p>
+                                <div className={styles.weatherDescriptionContainer}>
+                                    {isImageLoading && <Skeleton className={globalStyles.imgSkeletonLarge} />}
+                                    <img className={isImageLoading ? globalStyles.displayNone : ''} src={icon} alt="" onLoad={onLoadImageHandler} />
+                                    <p>{unit === "C" ? `${temp_c}° C` : `${temp_f} °F`}</p>
+                                    <ul>
+                                        <li>
+                                            <FaTemperatureFull />
+                                            <p>
+                                                Real fell: <span>{unit === "C" ? `${feelslike_c}° C` : `${feelslike_f}° F`}</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <IoWaterOutline />
+                                            <p>
+                                                Humidity:  <span>{humidity} %</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <FaWind />
+                                            <p>
+                                                Wind: <span>{wind_kph} km/h</span>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <ul className={styles.astrologyContainer}>
                                     <li>
-                                        <FaTemperatureFull />
-                                        <p>
-                                            Real fell: <span>{unit === "C" ? `${feelslike_c}° C` : `${feelslike_f}° F`}</span>
-                                        </p>
+                                        <FiSunrise />
+                                        <p>Rise: <span>{sunrise}</span></p>
                                     </li>
                                     <li>
-                                        <IoWaterOutline />
-                                        <p>
-                                            Humidity:  <span>{humidity} %</span>
-                                        </p>
+                                        <FiSunset />
+                                        <p>Set: <span>{sunset}</span></p>
                                     </li>
                                     <li>
-                                        <FaWind />
-                                        <p>
-                                            Wind: <span>{wind_kph} km/h</span>
-                                        </p>
+                                        <FaTemperatureArrowUp />
+                                        <p>High: <span>{unit === "C" ? `${maxtemp_c}° C` : `${maxtemp_f}° F`}</span></p>
+                                    </li>
+                                    <li>
+                                        <FaTemperatureArrowDown />
+                                        <p>Low: <span>{unit === "C" ? `${mintemp_c}° C` : `${mintemp_f}° F`}</span></p>
                                     </li>
                                 </ul>
                             </div>
-                            <ul className={styles.astrologyContainer}>
-                                <li>
-                                    <FiSunrise />
-                                    <p>Rise: <span>{sunrise}</span></p>
-                                </li>
-                                <li>
-                                    <FiSunset />
-                                    <p>Set: <span>{sunset}</span></p>
-                                </li>
-                                <li>
-                                    <FaTemperatureArrowUp />
-                                    <p>High: <span>{unit === "C" ? `${maxtemp_c}° C` : `${maxtemp_f}° F`}</span></p>
-                                </li>
-                                <li>
-                                    <FaTemperatureArrowDown />
-                                    <p>Low: <span>{unit === "C" ? `${mintemp_c}° C` : `${mintemp_f}° F`}</span></p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className={styles.forecastContainer}>
-                            <h2>Three Days Forecast</h2>
-                            <WeeklyForecast forecastday={forecastday} unit={unit} changeHourlyForecastHandler={changeHourlyForecastHandler} />
-                        </div>
-                        <div className={styles.forecastContainer}>
-                            <h2>Hourly Forecast - {dayName}</h2>
-                            <HourlyForecast filteredHours={filteredHours} unit={unit} />
-                        </div>
-                    </>
-                }
+                            <div className={styles.forecastContainer}>
+                                <h2>Three Days Forecast</h2>
+                                <WeeklyForecast forecastday={forecastday} unit={unit} changeHourlyForecastHandler={changeHourlyForecastHandler} />
+                            </div>
+                            <div className={styles.forecastContainer}>
+                                <h2>Hourly Forecast - {dayName}</h2>
+                                <HourlyForecast filteredHours={filteredHours} unit={unit} />
+                            </div>
+                        </motion.div>
+                    }
+                </AnimatePresence>
+
             </section>
         </>
     )
