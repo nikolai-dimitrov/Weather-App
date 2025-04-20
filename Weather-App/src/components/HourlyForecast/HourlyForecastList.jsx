@@ -1,5 +1,5 @@
 import { HourlyForecastCard } from "./HourlyForecastCard/HourlyForecastCard";
-export const HourlyForecast = ({ filteredHours, unit }) => {
+export const HourlyForecastList = ({ filteredHours, unit }) => {
     return (
         <ul>
             {filteredHours?.map((currentHourObject, index) => {

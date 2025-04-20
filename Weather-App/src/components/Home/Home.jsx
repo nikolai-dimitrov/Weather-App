@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 
-import { WeeklyForecast } from "../WeeklyForecast/WeeklyForecast";
-import { HourlyForecast } from "../HourlyForecast/HourlyForecast";
+import { WeeklyForecastList } from "../WeeklyForecastList/WeeklyForecastList";
+import { HourlyForecastList } from "../HourlyForecast/HourlyForecastList";
 import { Popup } from "../Popup/Popup";
 import { SkeletonLayout } from "../SkeletonLayout/SkeletonLayout";
 import Skeleton from "react-loading-skeleton";
@@ -180,11 +180,11 @@ export const Home = ({
                             </div>
                             <div className={styles.forecastContainer}>
                                 <h2>Three Days Forecast</h2>
-                                <WeeklyForecast forecastday={forecastday} unit={unit} changeHourlyForecastHandler={changeHourlyForecastHandler} />
+                                <WeeklyForecastList forecastday={forecastday} unit={unit} changeHourlyForecastHandler={changeHourlyForecastHandler} />
                             </div>
                             <div className={styles.forecastContainer}>
                                 <h2>Hourly Forecast - {dayName}</h2>
-                                <HourlyForecast filteredHours={filteredHours} unit={unit} />
+                                <HourlyForecastList filteredHours={filteredHours} unit={unit} />
                             </div>
                         </motion.div>
                     }

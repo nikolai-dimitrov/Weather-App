@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { WeeklyForecastCard } from "./WeeklyForecastCard/WeeklyForecastCard";
 
-export const WeeklyForecast = memo(({ forecastday, unit, changeHourlyForecastHandler }) => {
+export const WeeklyForecastList = memo(({ forecastday, unit, changeHourlyForecastHandler }) => {
     return (
         <ul>
             {forecastday?.map((dailyWeatherData, index) => {
