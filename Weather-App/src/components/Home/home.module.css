@@ -33,9 +33,10 @@ section {
 }
 
 .weatherDescriptionContainer {
+	position: relative;
 	display: flex;
 	flex-direction: row;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	gap: 100px;
 	margin-bottom: 20px;
@@ -43,6 +44,12 @@ section {
 
 .weatherDescriptionContainer img {
 	height: 90px;
+}
+
+.skeletonContainer {
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 .weatherDescriptionContainer > p {

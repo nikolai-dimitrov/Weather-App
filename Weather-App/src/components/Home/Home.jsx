@@ -73,7 +73,7 @@ export const Home = ({
                             key="home"
                             transition={{
                                 duration: 0.3,
-                                ease:easeInOut,
+                                ease: easeInOut,
                             }}
 
                             initial={{
@@ -89,8 +89,54 @@ export const Home = ({
                                 <h1 className={styles.heading}>{name}, {country}</h1>
                                 <p>{text}</p>
                                 <div className={styles.weatherDescriptionContainer}>
-                                    {isImageLoading && <Skeleton className={globalStyles.imgSkeletonLarge} />}
-                                    <img className={isImageLoading ? globalStyles.displayNone : ''} src={icon} alt="" onLoad={onLoadImageHandler} />
+                                    <div className={styles.animationContainer}>
+                                        <AnimatePresence>
+                                            {
+                                                isImageLoading && (
+                                                    <motion.div
+                                                        key="skeleton"
+                                                        className={styles.skeletonContainer}
+                                                        transition={{
+                                                            duration: 0.3,
+                                                            ease: easeInOut,
+                                                        }}
+
+                                                        initial={{
+                                                            opacity: 1,
+
+                                                        }}
+
+                                                        exit={{
+                                                            opacity: 0,
+                                                        }}
+                                                    >
+                                                        <Skeleton className={globalStyles.imgSkeletonLarge} />
+                                                    </motion.div>
+                                                )
+                                            }
+                                        </AnimatePresence>
+                                        <motion.div
+                                            key="image"
+                                            transition={{
+                                                duration: 0.3,
+                                                delay: 0.2,
+                                                ease: easeInOut,
+                                            }}
+
+                                            initial={{
+                                                opacity: 0,
+                                            }}
+
+                                            animate={{
+                                                // Ternary operator because image will mount in the same time with skeleton and animation will run under the skeleton.Target is to start animation when skeleton disappear.
+                                                // When isImageLoading is false skeleton disappears and animation starts.
+                                                opacity: isImageLoading ? 0 : 1,
+
+                                            }}
+                                        >
+                                            <img className={isImageLoading ? globalStyles.displayNone : ''} src={icon} alt="" onLoad={onLoadImageHandler} />
+                                        </motion.div>
+                                    </div>
                                     <p>{unit === "C" ? `${temp_c}° C` : `${temp_f} °F`}</p>
                                     <ul>
                                         <li>
