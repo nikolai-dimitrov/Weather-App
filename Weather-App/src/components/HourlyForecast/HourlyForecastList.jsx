@@ -13,5 +13,3 @@ export const HourlyForecastList = ({ filteredHours, unit }) => {
         </ul >
     )
 }
-
-// key={Date.now()
