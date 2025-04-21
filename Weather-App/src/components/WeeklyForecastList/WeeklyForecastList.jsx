@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo} from "react";
 import { WeeklyForecastCard } from "./WeeklyForecastCard/WeeklyForecastCard";
 
 export const WeeklyForecastList = memo(({ forecastday, unit, changeHourlyForecastHandler }) => {
@@ -6,9 +6,7 @@ export const WeeklyForecastList = memo(({ forecastday, unit, changeHourlyForecas
         <ul>
             {forecastday?.map((dailyWeatherData, index) => {
                 return (
-                    <li key={index}>
-                        <WeeklyForecastCard unit={unit} dailyWeatherData={dailyWeatherData} changeHourlyForecastHandler={changeHourlyForecastHandler} index={index} />
-                    </li>
+                    <WeeklyForecastCard key={dailyWeatherData.date} unit={unit} dailyWeatherData={dailyWeatherData} changeHourlyForecastHandler={changeHourlyForecastHandler} index={index} />
                 )
             })
             }
