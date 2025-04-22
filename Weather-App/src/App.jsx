@@ -13,6 +13,7 @@ function App() {
   const [unit, setUnit] = useState("C");
   const [showOpeningAnimation, setShowOpeningAnimation] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const [showLoadingSkeleton, setShowLoadingSkeleton] = useState(false);
   const [disableLocationBtn, setDisableLocationBtn] = useState(false);
   const [error, setError] = useState(null);
 
@@ -24,6 +25,8 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const skeletonDelay = setTimeout(() => setShowLoadingSkeleton(true), 500)
+
     const fetchAndUpdateWeather = async () => {
       if (!queryString) {
         return;
@@ -33,13 +36,17 @@ function App() {
       try {
         const data = await extractWeatherData(queryString);
         setWeatherData(data);
+        clearTimeout(skeletonDelay) //
         setIsLoading(isLoading => false);
+        setShowLoadingSkeleton(false); // 
         setError(null);
       } catch (error) {
         setError(error.message);
       };
     };
+
     fetchAndUpdateWeather();
+    return () => clearTimeout(skeletonDelay) //
   }, [queryString])
 
   const updateQueryByGeolocation = () => {
@@ -99,7 +106,7 @@ function App() {
               />
             </header>
             <main>
-              <Home error={error} clearError={clearError} unit={unit} {...weatherData} isLoading={isLoading} />
+              <Home error={error} clearError={clearError} unit={unit} {...weatherData} isLoading={isLoading && showLoadingSkeleton} />
             </main>
             <footer>
 

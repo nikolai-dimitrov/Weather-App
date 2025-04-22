@@ -1,17 +1,24 @@
-.skeletonWeatherText {
-    width: 70px;
-    height: 45px;
+.overlayContainer {
+	position: absolute;
+    left: 50%;
+    margin: 0 auto;
+    transform: translateX(-50%);
+    z-index: 7;
 }
 
-.skeletonPrimaryHeading{
-    width: 250px !important;
+.skeletonWeatherText {
+	width: 70px;
+	height: 45px;
+}
+
+.skeletonPrimaryHeading {
+	width: 250px !important;
 }
 
 .skeletonSecondaryHeading {
-    width: 600px !important;
+	width: 600px !important;
 }
 
 .skeletonSubHeading {
-    width: 130px !important;
-
+	width: 130px !important;
 }

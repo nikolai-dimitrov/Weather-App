@@ -44,7 +44,7 @@ export const Home = ({
 
     useEffect(() => {
         setIsImageLoading(true);
-    }, [forecastday]);
+    }, [isLoading]);
 
     const formattedLocalTimeString = formatLocalTime(localtime);
     // It parses date to corresponding short day name. - Wed
@@ -67,77 +67,76 @@ export const Home = ({
                 <AnimatePresence>
                     {error && <Popup message={error} clearError={clearError} />}
                 </AnimatePresence>
-                <AnimatePresence mode="wait">
-                    {isLoading ? <SkeletonLayout unit={unit} /> :
-                        <motion.div
-                            key="home"
-                            transition={{
-                                duration: 0.3,
-                                ease: easeInOut,
-                            }}
+                <div className={styles.homeContentContainer}>
+                    <motion.div
+                        key="home"
+                        transition={{
+                            duration: 0.3,
+                            ease: easeInOut,
+                        }}
 
-                            initial={{
-                                opacity: 0,
-                            }}
+                        initial={{
+                            opacity: 0,
+                        }}
 
-                            animate={{
-                                opacity: 1,
-                            }}
-                        >
-                            <div className={styles.todayWeatherContainer}>
-                                <h2 className={styles.subHeading}>{formattedLocalTimeString}</h2>
-                                <h1 className={styles.heading}>{name}, {country}</h1>
-                                <p>{text}</p>
-                                <div className={styles.weatherDescriptionContainer}>
-                                    <div className={styles.animationContainer}>
-                                        <AnimatePresence>
-                                            {
-                                                isImageLoading && (
-                                                    <motion.div
-                                                        key="skeleton"
-                                                        className={styles.skeletonContainer}
-                                                        transition={{
-                                                            duration: 0.3,
-                                                            ease: easeInOut,
-                                                        }}
+                        animate={{ opacity: 1 }}
 
-                                                        initial={{
-                                                            opacity: 1,
+                    >
+                        <div className={styles.todayWeatherContainer}>
+                            {isLoading ? <Skeleton height={29} className={styles.subHeading}></Skeleton> : <h2 className={styles.subHeading}>{formattedLocalTimeString}</h2>}
+                            {isLoading ? <Skeleton height={34} className={styles.heading} width={'70%'}></Skeleton> : <h1 className={styles.heading}>{name}, {country}</h1>}
+                            {isLoading ? <Skeleton height={24} width={'50%'} className={styles.info} ></Skeleton> : <p className={styles.info}>{text}</p>}
+                            <div className={styles.weatherDescriptionContainer}>
+                                <div className={styles.animationContainer}>
+                                    <AnimatePresence>
+                                        {
+                                            isImageLoading && (
+                                                <motion.div
+                                                    key="skeleton"
+                                                    className={styles.skeletonContainer}
+                                                    transition={{
+                                                        duration: 0.3,
+                                                        ease: easeInOut,
+                                                    }}
 
-                                                        }}
+                                                    initial={{
+                                                        opacity: 1,
 
-                                                        exit={{
-                                                            opacity: 0,
-                                                        }}
-                                                    >
-                                                        <Skeleton className={globalStyles.imgSkeletonLarge} />
-                                                    </motion.div>
-                                                )
-                                            }
-                                        </AnimatePresence>
-                                        <motion.div
-                                            key="image"
-                                            transition={{
-                                                duration: 0.3,
-                                                delay: 0.2,
-                                                ease: easeInOut,
-                                            }}
+                                                    }}
 
-                                            initial={{
-                                                opacity: 0,
-                                            }}
+                                                    exit={{
+                                                        opacity: 0,
+                                                    }}
+                                                >
+                                                    <Skeleton className={globalStyles.imgSkeletonLarge} />
+                                                </motion.div>
+                                            )
+                                        }
+                                    </AnimatePresence>
+                                    <motion.div
+                                        key="image"
+                                        transition={{
+                                            duration: 0.3,
+                                            delay: 0.2,
+                                            ease: easeInOut,
+                                        }}
 
-                                            animate={{
-                                                // Ternary operator because image will mount in the same time with skeleton and animation will run under the skeleton.Target is to start animation when skeleton disappear.
-                                                // When isImageLoading is false skeleton disappears and animation starts.
-                                                opacity: isImageLoading ? 0 : 1,
+                                        initial={{
+                                            opacity: 0,
+                                        }}
 
-                                            }}
-                                        >
-                                            <img className={isImageLoading ? globalStyles.displayNone : ''} src={icon} alt="" onLoad={onLoadImageHandler} />
-                                        </motion.div>
-                                    </div>
-                                    <p>{unit === "C" ? `${temp_c}° C` : `${temp_f} °F`}</p>
+                                        animate={{
+                                            // Ternary operator because image will mount in the same time with skeleton and animation will run under the skeleton.Target is to start animation when skeleton disappear.
+                                            // When isImageLoading is false skeleton disappears and animation starts.
+                                            opacity: isImageLoading ? 0 : 1,
+
+                                        }}
+                                    >
+                                        <img className={isImageLoading ? globalStyles.visibilityHidden : ''} src={icon} alt="" onLoad={onLoadImageHandler} />
+                                    </motion.div>
+                                </div>
+                                {isLoading ? <Skeleton height={49} width={124}></Skeleton> : <p>{unit === "C" ? `${temp_c}° C` : `${temp_f} °F`}</p>}
+                                {isLoading ? <div className={styles.todayDescriptionSkeletonContainer}><Skeleton height={20} width={153} count={3}></Skeleton></div> :
                                     <ul>
                                         <li>
                                             <FaTemperatureFull />
@@ -157,39 +156,57 @@ export const Home = ({
                                                 Wind: <span>{wind_kph} km/h</span>
                                             </p>
                                         </li>
-                                    </ul>
-                                </div>
-                                <ul className={styles.astrologyContainer}>
-                                    <li>
-                                        <FiSunrise />
-                                        <p>Rise: <span>{sunrise}</span></p>
-                                    </li>
-                                    <li>
-                                        <FiSunset />
-                                        <p>Set: <span>{sunset}</span></p>
-                                    </li>
-                                    <li>
-                                        <FaTemperatureArrowUp />
-                                        <p>High: <span>{unit === "C" ? `${maxtemp_c}° C` : `${maxtemp_f}° F`}</span></p>
-                                    </li>
-                                    <li>
-                                        <FaTemperatureArrowDown />
-                                        <p>Low: <span>{unit === "C" ? `${mintemp_c}° C` : `${mintemp_f}° F`}</span></p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className={styles.forecastContainer}>
-                                <h2>Three Days Forecast</h2>
-                                <WeeklyForecastList forecastday={forecastday} unit={unit} changeHourlyForecastHandler={changeHourlyForecastHandler} />
-                            </div>
-                            <div className={styles.forecastContainer}>
-                                <h2>Hourly Forecast - {dayName}</h2>
-                                <HourlyForecastList filteredHours={filteredHours} unit={unit} />
-                            </div>
-                        </motion.div>
-                    }
-                </AnimatePresence>
+                                    </ul>}
 
+                            </div>
+                            <ul className={styles.astrologyContainer}>
+                                <li>
+                                    {isLoading ? <Skeleton height={17} width={140} ></Skeleton> :
+                                        <>
+                                            <FiSunrise />
+                                            <p>Rise: <span>{sunrise}</span></p>
+                                        </>
+                                    }
+
+                                </li>
+                                <li>
+                                    {isLoading ? <Skeleton height={17} width={140} ></Skeleton> :
+                                        <>
+                                            <FiSunset />
+                                            <p>Set: <span>{sunset}</span></p>
+                                        </>
+                                    }
+                                </li>
+                                <li>
+                                    {isLoading ? <Skeleton height={17} width={140} ></Skeleton> :
+                                        <>
+                                            <FaTemperatureArrowUp />
+                                            <p>High: <span>{unit === "C" ? `${maxtemp_c}° C` : `${maxtemp_f}° F`}</span></p>
+                                        </>
+                                    }
+
+                                </li>
+                                <li>
+                                    {isLoading ? <Skeleton height={17} width={140} ></Skeleton> :
+                                        <>
+                                            <FaTemperatureArrowDown />
+                                            <p>Low: <span>{unit === "C" ? `${mintemp_c}° C` : `${mintemp_f}° F`}</span></p>
+                                        </>
+                                    }
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div className={styles.forecastContainer}>
+                            <h2>Three Days Forecast</h2>
+                            <WeeklyForecastList forecastday={forecastday} unit={unit} changeHourlyForecastHandler={changeHourlyForecastHandler} isLoading={isLoading} />
+                        </div>
+                        <div className={styles.forecastContainer}>
+                            <h2>Hourly Forecast - {dayName}</h2>
+                            <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} />
+                        </div>
+                    </motion.div>
+                </div>
             </section>
         </>
     )
