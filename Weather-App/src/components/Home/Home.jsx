@@ -3,7 +3,6 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import { WeeklyForecastList } from "../WeeklyForecastList/WeeklyForecastList";
 import { HourlyForecastList } from "../HourlyForecast/HourlyForecastList";
 import { Popup } from "../Popup/Popup";
-import { SkeletonLayout } from "../SkeletonLayout/SkeletonLayout";
 import Skeleton from "react-loading-skeleton";
 
 import { formatLocalTime, parseLocalTimePart } from "../../utils/formatLocalTime";
