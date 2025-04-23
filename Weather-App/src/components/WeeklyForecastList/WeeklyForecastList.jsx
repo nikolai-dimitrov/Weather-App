@@ -13,19 +13,3 @@ export const WeeklyForecastList = memo(({ forecastday, unit, changeHourlyForecas
         </ul >
     )
 })
-
-
-
-    // useEffect(() => {
-    //     console.log("different image cdn runs index:", index)
-    //     console.log("state:",isImageLoading, index)
-
-    //     // setIsImageLoading(true);
-    //     timeoutRef.current = setTimeout(() => {
-    //         setIsImageLoading(true)
-    //         console.log('completed timeout', index)
-    //     }, 300)
-
-    //     return () => clearTimeout(timeoutRef.current)
-
-    // }, [dailyWeatherData.day.condition.icon]);
