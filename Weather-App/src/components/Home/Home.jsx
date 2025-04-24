@@ -43,6 +43,7 @@ export const Home = ({
 
     useEffect(() => {
         setIsImageLoading(true);
+
     }, [isLoading]);
 
     const formattedLocalTimeString = formatLocalTime(localtime);
@@ -55,6 +56,7 @@ export const Home = ({
     const changeHourlyForecastHandler = useCallback((forecastDayIndex) => {
         setSelectedDay(forecastDayIndex);
     }, [forecastday]);
+
 
     const onLoadImageHandler = () => {
         setIsImageLoading(false);
@@ -89,7 +91,7 @@ export const Home = ({
                                 <div className={styles.animationContainer}>
                                     <AnimatePresence>
                                         {
-                                            isImageLoading && (
+                                            (isImageLoading || isLoading) && (
                                                 <motion.div
                                                     key="skeleton"
                                                     className={styles.skeletonContainer}
@@ -102,6 +104,7 @@ export const Home = ({
                                                         opacity: 1,
 
                                                     }}
+
 
                                                     exit={{
                                                         opacity: 0,
@@ -125,13 +128,12 @@ export const Home = ({
                                         }}
 
                                         animate={{
-                                            // Ternary operator because image will mount in the same time with skeleton and animation will run under the skeleton.Target is to start animation when skeleton disappear.
                                             // When isImageLoading is false skeleton disappears and animation starts.
                                             opacity: isImageLoading ? 0 : 1,
 
                                         }}
                                     >
-                                        <img className={isImageLoading ? globalStyles.visibilityHidden : ''} src={icon} alt="" onLoad={onLoadImageHandler} />
+                                        <img className={isImageLoading ? globalStyles.visibilityHidden : ''} src={icon} key={name} alt="weather-img" onLoad={onLoadImageHandler} />
                                     </motion.div>
                                 </div>
                                 {isLoading ? <Skeleton height={49} width={124}></Skeleton> : <p>{unit === "C" ? `${temp_c}° C` : `${temp_f} °F`}</p>}
@@ -198,11 +200,11 @@ export const Home = ({
                         </div>
                         <div className={styles.forecastContainer}>
                             <h2>Three Days Forecast</h2>
-                            <WeeklyForecastList forecastday={forecastday} unit={unit} changeHourlyForecastHandler={changeHourlyForecastHandler} isLoading={isLoading} />
+                            <WeeklyForecastList forecastday={forecastday} unit={unit} changeHourlyForecastHandler={changeHourlyForecastHandler} isLoading={isLoading} name={name} />
                         </div>
                         <div className={styles.forecastContainer}>
                             <h2>Hourly Forecast - {dayName}</h2>
-                            <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} />
+                            <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} name={name} />
                         </div>
                     </motion.div>
                 </div>
