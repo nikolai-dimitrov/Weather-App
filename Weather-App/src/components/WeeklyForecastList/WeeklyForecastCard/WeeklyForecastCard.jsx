@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence, motion, easeInOut } from "motion/react";
 import Skeleton from "react-loading-skeleton";
 
@@ -8,35 +8,19 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import styles from "./weekly-forecast-card.module.css";
 import globalStyles from '../../../styles/global.module.css'
 
-export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecastHandler, index, isLoading }) => {
+export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecastHandler, index, isLoading, name }) => {
     const [isImageLoading, setIsImageLoading] = useState(true);
-    const [showImageSkeleton, setShowImageSkeleton] = useState(true);
-    const imageSkeletonTimeoutRef = useRef(null);
 
     useEffect(() => {
+        // Because of react batching isLoading state won't change to true and it won't trigger useEffect and skeleton won't blink when internet is fast.
+        // When internet is slow isLoading state will go true first than false and useEffect will trigger then skeleton will be shown.
+        // In this case timeout with minimum ms delay before setIsImageLoading to prevent blinking isn't needed.
         setIsImageLoading(true);
-        imageSkeletonTimeoutRef.current = setTimeout(() => {
-            if (isLoading || isImageLoading) {
-                // if data isn't loaded for less than 100ms - show loading skeleton
-                setShowImageSkeleton(true);
-            }
-        }, 100)
-
-        return () => clearTimeout(imageSkeletonTimeoutRef.current);
-
     }, [isLoading]);
 
-    useEffect(() => {
-        // remove skeleton after data and image were loaded
-        if (!isLoading && !isImageLoading) {
-            setShowImageSkeleton(false);
-        };
-        
-    }, [isLoading, isImageLoading]);
+
 
     const onLoadImageHandler = (e) => {
-        // clearingTimeout prevents skeleton blinking when data loads fast.
-        clearTimeout(imageSkeletonTimeoutRef.current)
         setIsImageLoading(false);
     }
 
@@ -51,7 +35,7 @@ export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecas
                 <div className={styles.animationContainer}>
                     <AnimatePresence>
                         {
-                            showImageSkeleton && (
+                            (isImageLoading || isLoading) && (
                                 <motion.div
                                     key="skeleton"
                                     className={styles.skeletonContainer}
@@ -79,7 +63,7 @@ export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecas
                         key="image"
                         transition={{
                             duration: 0.3,
-                            delay: 0.3,
+                            delay: 0.2,
                             ease: easeInOut,
                         }}
 
@@ -88,13 +72,13 @@ export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecas
                         }}
 
                         animate={{
-                            // trigger animation when image is already loaded 
+                            // When isImageLoading is false skeleton disappears and animation starts.
                             opacity: isImageLoading ? 0 : 1,
                         }}
                     >
-                        {/* Change image visibility instantly when isImageLoading state is set to true. 
+                        {/* Change image visibility instantly when isLoading state is set to true. 
                         That prevents last image to be shown for a moment before skeleton appears. */}
-                        <img className={isImageLoading ? globalStyles.visibilityHidden : ''} src={dailyWeatherData.day.condition.icon} key={dailyWeatherData.day.avgtemp_f} alt="Weather img" onLoad={onLoadImageHandler} />
+                        <img className={isLoading ? globalStyles.visibilityHidden : ''} src={dailyWeatherData.day.condition.icon} key={`${dailyWeatherData.day.avgtemp_f}-${name}`} alt="Weather img" onLoad={onLoadImageHandler} />
 
                     </motion.div>
                 </div>
