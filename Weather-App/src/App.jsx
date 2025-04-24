@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const skeletonDelay = setTimeout(() => setShowLoadingSkeleton(true), 500)
+    const skeletonDelay = setTimeout(() => setShowLoadingSkeleton(true), 300)
 
     const fetchAndUpdateWeather = async () => {
       if (!queryString) {
