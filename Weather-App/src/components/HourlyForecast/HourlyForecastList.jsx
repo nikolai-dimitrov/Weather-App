@@ -1,12 +1,11 @@
 import { HourlyForecastCard } from "./HourlyForecastCard/HourlyForecastCard";
-export const HourlyForecastList = ({ filteredHours, unit }) => {
+export const HourlyForecastList = ({ filteredHours, unit, isLoading, name }) => {
     return (
         <ul>
-            {filteredHours?.map((currentHourObject, index) => {
+            {filteredHours?.map((currentHourObject) => {
+                const key = currentHourObject.time.split(' ')[1];
                 return (
-                    <li key={index}>
-                        <HourlyForecastCard unit={unit} currentHourObject={currentHourObject} />
-                    </li>
+                    <HourlyForecastCard key={key} unit={unit} currentHourObject={currentHourObject} isLoading={isLoading} />
                 )
             })
             }
