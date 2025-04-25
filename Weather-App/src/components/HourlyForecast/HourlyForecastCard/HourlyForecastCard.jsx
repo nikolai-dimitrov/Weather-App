@@ -17,7 +17,7 @@ export const HourlyForecastCard = ({ unit, currentHourObject, isLoading }) => {
     useEffect(() => {
         imageSkeletonDelayRef.current = setTimeout(() => {
             setIsImageLoading(true);
-        }, 200);
+        }, 300);
 
         return () => {
             clearTimeout(imageSkeletonDelayRef.current);
@@ -28,8 +28,8 @@ export const HourlyForecastCard = ({ unit, currentHourObject, isLoading }) => {
     const onLoadImageHandler = (e) => {
         clearTimeout(imageSkeletonDelayRef.current);
         setIsImageLoading(false);
-    }
 
+    }
 
     const time = currentHourObject.time.split(' ')[1];
     return (
@@ -84,7 +84,7 @@ export const HourlyForecastCard = ({ unit, currentHourObject, isLoading }) => {
 
                         }}
                     >
-                        <img className={isLoading ? globalStyles.visibilityHidden : ''} src={currentHourObject.condition.icon} key={Date.now()} alt="Weather img" onLoad={onLoadImageHandler} />
+                        <img className={(isLoading || isImageLoading) ? globalStyles.visibilityHidden : ''} src={`${currentHourObject.condition.icon}?cacheBust=${Date.now()}`}  alt="Weather img" onLoad={onLoadImageHandler} />
                     </motion.div>
                 </div>
                 {isLoading ?
