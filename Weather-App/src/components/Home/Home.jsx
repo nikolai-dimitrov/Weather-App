@@ -60,7 +60,7 @@ export const Home = ({
 
     const onLoadImageHandler = () => {
         setIsImageLoading(false);
-    }
+    };
 
     return (
         <>
@@ -204,7 +204,7 @@ export const Home = ({
                         </div>
                         <div className={styles.forecastContainer}>
                             <h2>Hourly Forecast - {dayName}</h2>
-                            <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} name={name} />
+                            <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} />
                         </div>
                     </motion.div>
                 </div>
