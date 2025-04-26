@@ -133,7 +133,7 @@ export const Home = ({
 
                                         }}
                                     >
-                                        <img className={isImageLoading ? globalStyles.visibilityHidden : ''} src={icon} key={name} alt="weather-img" onLoad={onLoadImageHandler} />
+                                        <img className={isImageLoading ? globalStyles.visibilityHidden : ''} src={`${icon}?cacheBust=${Date.now()}`} alt="weather-img" onLoad={onLoadImageHandler} />
                                     </motion.div>
                                 </div>
                                 {isLoading ? <Skeleton height={49} width={124}></Skeleton> : <p>{unit === "C" ? `${temp_c}° C` : `${temp_f} °F`}</p>}
