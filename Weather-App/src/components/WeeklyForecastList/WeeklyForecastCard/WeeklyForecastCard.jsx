@@ -8,7 +8,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import styles from "./weekly-forecast-card.module.css";
 import globalStyles from '../../../styles/global.module.css'
 
-export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecastHandler, index, isLoading, name }) => {
+export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecastHandler, index, isLoading }) => {
     const [isImageLoading, setIsImageLoading] = useState(true);
 
     useEffect(() => {
@@ -78,7 +78,7 @@ export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecas
                     >
                         {/* Change image visibility instantly when isLoading state is set to true. 
                         That prevents last image to be shown for a moment before skeleton appears. */}
-                        <img className={isLoading ? globalStyles.visibilityHidden : ''} src={dailyWeatherData.day.condition.icon} key={`${dailyWeatherData.day.avgtemp_f}-${name}`} alt="Weather img" onLoad={onLoadImageHandler} />
+                        <img className={(isLoading || isImageLoading) ? globalStyles.visibilityHidden : ''} src={`${dailyWeatherData.day.condition.icon}?cacheBust=${Date.now()}`} alt="Weather img" onLoad={onLoadImageHandler} />
 
                     </motion.div>
                 </div>
