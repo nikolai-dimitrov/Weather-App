@@ -43,7 +43,6 @@ export const Home = ({
 
     useEffect(() => {
         setIsImageLoading(true);
-
     }, [isLoading]);
 
     const formattedLocalTimeString = formatLocalTime(localtime);
@@ -56,7 +55,6 @@ export const Home = ({
     const changeHourlyForecastHandler = useCallback((forecastDayIndex) => {
         setSelectedDay(forecastDayIndex);
     }, [forecastday]);
-
 
     const onLoadImageHandler = () => {
         setIsImageLoading(false);
@@ -129,11 +127,11 @@ export const Home = ({
 
                                         animate={{
                                             // When isImageLoading is false skeleton disappears and animation starts.
-                                            opacity: isImageLoading ? 0 : 1,
+                                            opacity: (isImageLoading || isLoading) ? 0 : 1,
 
                                         }}
                                     >
-                                        <img className={isImageLoading ? globalStyles.visibilityHidden : ''} src={`${icon}?cacheBust=${Date.now()}`} alt="weather-img" onLoad={onLoadImageHandler} />
+                                        <img className={(isImageLoading || isLoading) ? globalStyles.visibilityHidden : ''} src={`${icon}?cacheBust=${Date.now()}`} alt="weather-img" onLoad={onLoadImageHandler} />
                                     </motion.div>
                                 </div>
                                 {isLoading ? <Skeleton height={49} width={124}></Skeleton> : <p>{unit === "C" ? `${temp_c}° C` : `${temp_f} °F`}</p>}
@@ -204,7 +202,7 @@ export const Home = ({
                         </div>
                         <div className={styles.forecastContainer}>
                             <h2>Hourly Forecast - {dayName}</h2>
-                            <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} />
+                            <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} name={name} />
                         </div>
                     </motion.div>
                 </div>

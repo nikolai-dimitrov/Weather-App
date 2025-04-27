@@ -12,13 +12,8 @@ export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecas
     const [isImageLoading, setIsImageLoading] = useState(true);
 
     useEffect(() => {
-        // Because of react batching isLoading state won't change to true and it won't trigger useEffect and skeleton won't blink when internet is fast.
-        // When internet is slow isLoading state will go true first than false and useEffect will trigger then skeleton will be shown.
-        // In this case timeout with minimum ms delay before setIsImageLoading to prevent blinking isn't needed.
         setIsImageLoading(true);
     }, [isLoading]);
-
-
 
     const onLoadImageHandler = (e) => {
         setIsImageLoading(false);
@@ -73,12 +68,12 @@ export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecas
 
                         animate={{
                             // When isImageLoading is false skeleton disappears and animation starts.
-                            opacity: isImageLoading ? 0 : 1,
+                            opacity: (isImageLoading || isLoading) ? 0 : 1,
                         }}
                     >
                         {/* Change image visibility instantly when isLoading state is set to true. 
                         That prevents last image to be shown for a moment before skeleton appears. */}
-                        <img className={(isLoading || isImageLoading) ? globalStyles.visibilityHidden : ''} src={`${dailyWeatherData.day.condition.icon}?cacheBust=${Date.now()}`} alt="Weather img" onLoad={onLoadImageHandler} />
+                        <img className={(isImageLoading || isLoading) ? globalStyles.visibilityHidden : ''} src={`${dailyWeatherData.day.condition.icon}?cacheBust=${Date.now()}`} alt="Weather img" onLoad={onLoadImageHandler} />
 
                     </motion.div>
                 </div>
