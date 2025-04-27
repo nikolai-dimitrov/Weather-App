@@ -25,6 +25,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    // Using showLoadingSkeleton && isLoading prevent skeleton blinking.Skeleton will be shown if fetch isn't completed for less than 300ms.
     const skeletonDelay = setTimeout(() => setShowLoadingSkeleton(true), 300)
 
     const fetchAndUpdateWeather = async () => {
