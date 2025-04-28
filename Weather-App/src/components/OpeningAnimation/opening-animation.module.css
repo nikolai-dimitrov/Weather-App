@@ -36,3 +36,36 @@
 	display: flex;
 	flex-direction: column;
 }
+
+@media screen and (max-width: 500px) {
+	.logoContainer span {
+		font-size: 20px;
+	}
+
+	.logoContainer svg {
+		height: 45px;
+		width: 45px;
+	}
+}
+
+@media screen and (max-width: 365px) {
+	.logoContainer span {
+		font-size: 17px;
+	}
+
+	.logoContainer svg {
+		height: 35px;
+		width: 35px;
+	}
+}
+
+@media screen and (max-width: 285px) {
+	.logoContainer span {
+		font-size: 15px;
+	}
+
+	.logoContainer svg {
+		height: 28px;
+		width: 28px;
+	}
+}

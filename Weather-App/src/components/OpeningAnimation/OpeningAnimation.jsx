@@ -24,6 +24,7 @@ export const OpeningAnimation = () => {
 
         return () => clearInterval(increasePercent);
     }, [])
+
     return (
         <>
             <div className={styles.layout}>
