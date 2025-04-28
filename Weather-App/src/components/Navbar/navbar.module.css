@@ -77,3 +77,44 @@ nav {
 .metricsContainer span {
 	font-weight: bold;
 }
+
+@media screen and (max-width: 600px) {
+	nav {
+		padding: 20px 10px 20px 10px;
+	}
+
+	.logoContainer span {
+		display: none;
+	}
+
+	.searchForm input {
+		max-width: 200px;
+	}
+
+	.searchForm .searchBtn {
+		top: 55%;
+	}
+}
+
+@media screen and (max-width: 420px) {
+	.logoContainer svg {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 340px) {
+	.logoContainer svg {
+		display: none;
+	}
+
+	.searchForm input {
+		max-width: 150px;
+		text-overflow: ellipsis;
+	}
+}
+
+@media screen and (max-width: 290px) {
+	.searchForm {
+		gap: 0;
+	}
+}
