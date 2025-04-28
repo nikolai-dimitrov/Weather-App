@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar/Navbar';
 import { Home } from './components/Home/Home';
+import { Footer } from './components/Footer/Footer';
 import { OpeningAnimation } from './components/OpeningAnimation/OpeningAnimation';
 
 import { extractWeatherData } from './services/weatherApiService';
@@ -37,9 +38,9 @@ function App() {
       try {
         const data = await extractWeatherData(queryString);
         setWeatherData(data);
-        clearTimeout(skeletonDelay) //
+        clearTimeout(skeletonDelay)
         setIsLoading(isLoading => false);
-        setShowLoadingSkeleton(false); // 
+        setShowLoadingSkeleton(false);
         setError(null);
       } catch (error) {
         setError(error.message);
@@ -47,7 +48,7 @@ function App() {
     };
 
     fetchAndUpdateWeather();
-    return () => clearTimeout(skeletonDelay) //
+    return () => clearTimeout(skeletonDelay)
   }, [queryString])
 
   const updateQueryByGeolocation = () => {
@@ -110,7 +111,7 @@ function App() {
               <Home error={error} clearError={clearError} unit={unit} {...weatherData} isLoading={isLoading && showLoadingSkeleton} />
             </main>
             <footer>
-
+              <Footer />
             </footer>
           </>
         )
