@@ -1,20 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { AnimatePresence, easeInOut, motion } from "motion/react";
-
 import Skeleton from "react-loading-skeleton";
+
+import { useImageLoadingSkeleton } from '../../../hooks/useImageLoadingSkeleton';
 
 import 'react-loading-skeleton/dist/skeleton.css';
 import styles from './hourly-forecast-card.module.css';
 import globalStyles from '../../../styles/global.module.css';
 export const HourlyForecastCard = ({ unit, currentHourObject, isLoading, name }) => {
-    const [isImageLoading, setIsImageLoading] = useState(true);
+    const { isImageLoading, triggerImageLoading, onLoadImageHandler } = useImageLoadingSkeleton(isLoading);
     const previousCityNameRef = useRef(null);
     const imageSkeletonDelayRef = useRef(null);
-
-    useEffect(() => {
-        // It triggers on api call if fetch isn't completed for less than 300ms.
-        setIsImageLoading(true);
-    }, [isLoading]);
 
     useEffect(() => {
         // It doesn't trigger on api call and takes care of the image skeleton when we change the hourly forecast only by clicking on the selected day in three day forecast.
@@ -24,8 +20,9 @@ export const HourlyForecastCard = ({ unit, currentHourObject, isLoading, name })
         }
 
         imageSkeletonDelayRef.current = setTimeout(() => {
-            setIsImageLoading(true);
-        }, 200);
+            console.log('run')
+            triggerImageLoading()
+        }, 300);
 
 
         return () => {
@@ -33,12 +30,6 @@ export const HourlyForecastCard = ({ unit, currentHourObject, isLoading, name })
         }
 
     }, [currentHourObject]);
-
-    const onLoadImageHandler = (e) => {
-        clearTimeout(imageSkeletonDelayRef.current);
-        setIsImageLoading(false);
-
-    }
 
     const time = currentHourObject.time.split(' ')[1];
 
@@ -94,7 +85,7 @@ export const HourlyForecastCard = ({ unit, currentHourObject, isLoading, name })
 
                         }}
                     >
-                        <img className={(isImageLoading || isLoading) ? globalStyles.visibilityHidden : ''} src={`${currentHourObject.condition.icon}?cacheBust=${Date.now()}`} alt="Weather img" onLoad={onLoadImageHandler} />
+                        <img className={(isImageLoading || isLoading) ? globalStyles.visibilityHidden : ''} src={`${currentHourObject.condition.icon}?cacheBust=${Date.now()}`} alt="Weather img" onLoad={() => onLoadImageHandler(imageSkeletonDelayRef)} />
                     </motion.div>
                 </div>
                 {isLoading ?

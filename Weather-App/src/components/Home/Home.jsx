@@ -1,10 +1,11 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 
 import { WeeklyForecastList } from "../WeeklyForecastList/WeeklyForecastList";
 import { HourlyForecastList } from "../HourlyForecast/HourlyForecastList";
 import { Popup } from "../Popup/Popup";
 import Skeleton from "react-loading-skeleton";
 
+import { useImageLoadingSkeleton } from '../../hooks/useImageLoadingSkeleton';
 import { formatLocalTime, parseLocalTimePart } from "../../utils/formatLocalTime";
 
 import { AnimatePresence, easeInOut, motion } from "motion/react";
@@ -39,11 +40,7 @@ export const Home = ({
     mintemp_f,
     icon }) => {
     const [selectedDay, setSelectedDay] = useState(0);
-    const [isImageLoading, setIsImageLoading] = useState(true);
-
-    useEffect(() => {
-        setIsImageLoading(true);
-    }, [isLoading]);
+    const { isImageLoading, onLoadImageHandler } = useImageLoadingSkeleton(isLoading);
 
     const formattedLocalTimeString = formatLocalTime(localtime);
     // It parses date to corresponding short day name. - Wed
@@ -55,10 +52,6 @@ export const Home = ({
     const changeHourlyForecastHandler = useCallback((forecastDayIndex) => {
         setSelectedDay(forecastDayIndex);
     }, [forecastday]);
-
-    const onLoadImageHandler = () => {
-        setIsImageLoading(false);
-    };
 
     return (
         <>

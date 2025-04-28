@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
 import { AnimatePresence, motion, easeInOut } from "motion/react";
 import Skeleton from "react-loading-skeleton";
+
+import { useImageLoadingSkeleton } from '../../../hooks/useImageLoadingSkeleton';
 
 import { parseLocalTimePart } from "../../../utils/formatLocalTime";
 
@@ -9,15 +10,7 @@ import styles from "./weekly-forecast-card.module.css";
 import globalStyles from '../../../styles/global.module.css'
 
 export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecastHandler, index, isLoading }) => {
-    const [isImageLoading, setIsImageLoading] = useState(true);
-
-    useEffect(() => {
-        setIsImageLoading(true);
-    }, [isLoading]);
-
-    const onLoadImageHandler = (e) => {
-        setIsImageLoading(false);
-    }
+    const { isImageLoading, onLoadImageHandler } = useImageLoadingSkeleton(isLoading);
 
     const shortDayName = parseLocalTimePart(dailyWeatherData.date, { weekday: "short" });
     return (
