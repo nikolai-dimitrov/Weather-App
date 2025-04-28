@@ -1,0 +1,19 @@
+.footerContainer {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 29px 10px 29px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.footerContainer p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.footerContainer a {
+    color: #fff;
+    font-size: 25px;
+}
