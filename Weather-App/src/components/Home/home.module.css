@@ -9,11 +9,12 @@ section {
 
 .homeContentContainer {
 	position: relative;
+	max-width: 640px;
+	margin: 0 auto;
 }
 
 .todayWeatherContainer {
-	max-width: 600px;
-	margin: 0 auto 60px auto;
+	margin-bottom: 60px;
 }
 
 .todayWeatherContainer span {
@@ -76,7 +77,6 @@ section {
 
 .weatherDescriptionContainer ul li {
 	display: flex;
-	flex-direction: row;
 	gap: 8px;
 	align-items: center;
 }
@@ -88,18 +88,10 @@ section {
 	gap: 8px;
 }
 
-.weatherDescriptionContainer ul li span {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 4px;
-}
-
 .astrologyContainer {
 	display: flex;
 	flex-direction: row;
-	justify-content: center;
-	gap: 10px;
+	justify-content: space-between;
 }
 
 .astrologyContainer li {
@@ -111,7 +103,7 @@ section {
 
 .astrologyContainer li:not(:last-child) {
 	border-right: 1px solid #fff;
-	padding-right: 10px;
+	padding-right: 17px;
 }
 
 .astrologyContainer li p {
@@ -121,16 +113,8 @@ section {
 	gap: 5px;
 }
 
-.astrologyContainer li p span {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 3px;
-}
-
 .forecastContainer {
-	max-width: 600px;
-	margin: 0 auto 50px auto;
+	margin-bottom: 50px;
 }
 
 .forecastContainer h2 {
@@ -143,12 +127,4 @@ section {
 .forecastContainer ul {
 	display: flex;
 	justify-content: space-between;
-}
-
-.forecastContainer li div p:last-child {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	gap: 5px;
 }
