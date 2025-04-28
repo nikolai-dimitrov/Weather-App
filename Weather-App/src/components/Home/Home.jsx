@@ -195,7 +195,9 @@ export const Home = ({
                         </div>
                         <div className={styles.forecastContainer}>
                             <h2>Hourly Forecast - {dayName}</h2>
-                            <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} name={name} />
+                            <div className={styles.hourlyForecastWrapper}>
+                                <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} name={name} />
+                            </div>
                         </div>
                     </motion.div>
                 </div>

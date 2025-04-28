@@ -64,7 +64,9 @@ section {
 	gap: 5px;
 }
 
-.weatherDescriptionContainer .todayDescriptionSkeletonContainer span:not(:last-of-type) {
+.weatherDescriptionContainer
+	.todayDescriptionSkeletonContainer
+	span:not(:last-of-type) {
 	margin-bottom: 10px;
 }
 
@@ -117,6 +119,10 @@ section {
 	margin-bottom: 50px;
 }
 
+.forecastContainer:nth-last-of-type(1) {
+	margin-bottom: unset;
+}
+
 .forecastContainer h2 {
 	text-align: left;
 	padding-bottom: 10px;
@@ -127,4 +133,82 @@ section {
 .forecastContainer ul {
 	display: flex;
 	justify-content: space-between;
+}
+
+@media screen and (max-width: 600px) {
+	.homeContentContainer {
+		padding: 0 10px 0 10px;
+	}
+
+	.weatherDescriptionContainer {
+		gap: unset;
+	}
+
+	.weatherDescriptionContainer .skeletonContainer {
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
+	.astrologyContainer {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		row-gap: 15px;
+		justify-items: center;
+	}
+
+	.astrologyContainer li:not(:last-child) {
+		border-right: unset;
+		padding-right: unset;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.weatherDescriptionContainer {
+		flex-direction: column;
+		gap: 20px;
+		margin-bottom: 30px;
+	}
+
+	.subHeading {
+		font-size: 19px;
+	}
+
+	.hourlyForecastWrapper {
+		overflow-x: scroll;
+		padding-bottom: 10px;
+	}
+
+	.forecastContainer .hourlyForecastWrapper ul {
+		width: 500px;
+	}
+
+	.hourlyForecastWrapper::-webkit-scrollbar {
+		height: 6px;
+	}
+
+	.hourlyForecastWrapper::-webkit-scrollbar-track {
+		background-color: none;
+	}
+
+	.hourlyForecastWrapper::-webkit-scrollbar-thumb {
+		background-color: #2196f3;
+		border-radius: 12px;
+	}
+
+	/* Handle on hover */
+	.hourlyForecastWrapper::-webkit-scrollbar-thumb:hover {
+		background-color: #1976d2;
+	}
+}
+
+@media screen and (max-width: 385px) {
+	.subHeading {
+		height: 46px !important;
+	}
+}
+
+@media screen and (max-width: 325px) {
+	.astrologyContainer {
+		grid-template-columns: repeat(1, 1fr);
+	}
 }
