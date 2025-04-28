@@ -1,7 +1,7 @@
 nav {
 	max-width: 1440px;
 	margin: 0 auto;
-	padding: 20px 0px 20px 0px;
+	padding: 20px 10px 20px 10px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -79,10 +79,6 @@ nav {
 }
 
 @media screen and (max-width: 600px) {
-	nav {
-		padding: 20px 10px 20px 10px;
-	}
-
 	.logoContainer span {
 		display: none;
 	}

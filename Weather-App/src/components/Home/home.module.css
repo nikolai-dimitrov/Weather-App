@@ -11,6 +11,7 @@ section {
 	position: relative;
 	max-width: 640px;
 	margin: 0 auto;
+	padding: 0 10px 0 10px;
 }
 
 .todayWeatherContainer {
@@ -136,10 +137,6 @@ section {
 }
 
 @media screen and (max-width: 600px) {
-	.homeContentContainer {
-		padding: 0 10px 0 10px;
-	}
-
 	.weatherDescriptionContainer {
 		gap: unset;
 	}
