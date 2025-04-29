@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useRef, useCallback } from "react";
 
 import { WeeklyForecastList } from "../WeeklyForecastList/WeeklyForecastList";
 import { HourlyForecastList } from "../HourlyForecast/HourlyForecastList";
@@ -6,9 +6,10 @@ import { Popup } from "../Popup/Popup";
 import Skeleton from "react-loading-skeleton";
 
 import { useImageLoadingSkeleton } from '../../hooks/useImageLoadingSkeleton';
+import { useScreenResize } from '../../hooks/useScreenResize'
 import { formatLocalTime, parseLocalTimePart } from "../../utils/formatLocalTime";
 
-import { AnimatePresence, easeInOut, motion } from "motion/react";
+import { AnimatePresence, easeInOut, motion, useInView } from "motion/react";
 import { FaTemperatureFull, FaWind, FaTemperatureArrowDown, FaTemperatureArrowUp } from "react-icons/fa6";
 import { IoWaterOutline } from "react-icons/io5";
 import { FiSunrise, FiSunset } from "react-icons/fi";
@@ -41,6 +42,9 @@ export const Home = ({
     icon }) => {
     const [selectedDay, setSelectedDay] = useState(0);
     const { isImageLoading, onLoadImageHandler } = useImageLoadingSkeleton(isLoading);
+    const isMobile = useScreenResize();
+    const scrollContainerRef = useRef(null);
+    const isInView = useInView(scrollContainerRef, { once: true });
 
     const formattedLocalTimeString = formatLocalTime(localtime);
     // It parses date to corresponding short day name. - Wed
@@ -53,6 +57,7 @@ export const Home = ({
         setSelectedDay(forecastDayIndex);
     }, [forecastday]);
 
+    // console.log(isMobile)
     return (
         <>
             <section>
@@ -195,8 +200,16 @@ export const Home = ({
                         </div>
                         <div className={styles.forecastContainer}>
                             <h2>Hourly Forecast - {dayName}</h2>
-                            <div className={styles.hourlyForecastWrapper}>
-                                <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} name={name} />
+                            <div className={styles.hourlyForecastWrapper} ref={scrollContainerRef}>
+                                <motion.div
+                                    transition={{ duration: 1.5 }}
+
+                                    animate={{
+                                        x: (isInView && isMobile )? [0, -20, 0] : {}
+                                    }}
+                                >
+                                    <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} name={name} />
+                                </motion.div>
                             </div>
                         </div>
                     </motion.div>
