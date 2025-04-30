@@ -65,6 +65,13 @@ section {
 	gap: 5px;
 }
 
+.weatherDescriptionContainer .currentTemp {
+	display: flex;
+	flex-direction: row;
+	font-size: 40px;
+	gap: 5px;
+}
+
 .weatherDescriptionContainer
 	.todayDescriptionSkeletonContainer
 	span:not(:last-of-type) {
