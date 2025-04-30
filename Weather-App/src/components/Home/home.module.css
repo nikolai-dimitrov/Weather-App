@@ -141,11 +141,6 @@ section {
 		gap: unset;
 	}
 
-	.weatherDescriptionContainer .skeletonContainer {
-		left: 50%;
-		transform: translateX(-50%);
-	}
-
 	.astrologyContainer {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
@@ -168,6 +163,11 @@ section {
 
 	.subHeading {
 		font-size: 19px;
+	}
+
+	.weatherDescriptionContainer .skeletonContainer {
+		left: 50%;
+		transform: translateX(-50%);
 	}
 
 	.hourlyForecastWrapper {
