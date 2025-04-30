@@ -23,8 +23,6 @@ export const Home = ({
     error,
     clearError,
     unit,
-    updateHourlyForecastSource,
-    hourlyForecastSource,
     humidity,
     wind_kph,
     feelslike_c,
@@ -58,7 +56,6 @@ export const Home = ({
 
     const changeHourlyForecastHandler = useCallback((forecastDayIndex) => {
         setSelectedDay(forecastDayIndex);
-        updateHourlyForecastSource('local');
     }, [forecastday]);
 
     return (
@@ -222,7 +219,7 @@ export const Home = ({
                                         x: (isInView && isMobile) ? [0, -20, 0] : {}
                                     }}
                                 >
-                                    <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} name={name} hourlyForecastSource={hourlyForecastSource} />
+                                    <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} name={name} />
                                 </motion.div>
                             </div>
                         </div>
