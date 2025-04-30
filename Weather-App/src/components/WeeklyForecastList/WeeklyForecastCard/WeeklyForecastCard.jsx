@@ -61,7 +61,8 @@ export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecas
 
                         animate={{
                             // When isImageLoading is false skeleton disappears and animation starts.
-                            opacity: (isImageLoading || isLoading) ? 0 : 1,
+                            opacity: (isImageLoading || isLoading) ? 0 : [0, 0, 1, 1],
+
                         }}
                     >
                         {/* Change image visibility instantly when isLoading state is set to true. 

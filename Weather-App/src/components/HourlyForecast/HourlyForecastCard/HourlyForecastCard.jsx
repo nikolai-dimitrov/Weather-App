@@ -20,7 +20,6 @@ export const HourlyForecastCard = ({ unit, currentHourObject, isLoading, name })
         }
 
         imageSkeletonDelayRef.current = setTimeout(() => {
-            console.log('run')
             triggerImageLoading()
         }, 300);
 
@@ -81,7 +80,7 @@ export const HourlyForecastCard = ({ unit, currentHourObject, isLoading, name })
 
                         animate={{
                             // When isImageLoading is false skeleton disappears and animation starts.
-                            opacity: (isImageLoading || isLoading) ? 0 : 1,
+                            opacity: (isImageLoading || isLoading) ? 0 : [0, 0, 1, 1],
 
                         }}
                     >
