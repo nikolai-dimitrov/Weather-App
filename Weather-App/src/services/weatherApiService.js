@@ -1,13 +1,8 @@
-<<<<<<< Updated upstream
-const API_KEY = "bdf42325dd664721bf0112934252503"; //3
-const BASE_URL = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}`;
-=======
 import { formatLocalTime } from "../utils/formatLocalTime";
 import { parseLocalTimePart } from "../utils/formatLocalTime";
 
-const API_KEY = "bdf42325dd664721bf0112934252503";
-const BASE_URL = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}`;
->>>>>>> Stashed changes
+const API_KEY = "bdf42325dd664721bf0112934252503"; //3
+const BASE_URL = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}`;
 
 export const fetchWeatherData = async (queryString) => {
 	const url = `${BASE_URL}&q=${queryString}&days=3`;
