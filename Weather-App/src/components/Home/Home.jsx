@@ -3,6 +3,7 @@ import { useState, useMemo, useRef, useCallback } from "react";
 import { WeeklyForecastList } from "../WeeklyForecastList/WeeklyForecastList";
 import { HourlyForecastList } from "../HourlyForecast/HourlyForecastList";
 import { Popup } from "../Popup/Popup";
+import { FadeTransition } from "../FadeTransition/FadeTransition";
 import Skeleton from "react-loading-skeleton";
 
 import { useImageLoadingSkeleton } from '../../hooks/useImageLoadingSkeleton';
@@ -22,6 +23,8 @@ export const Home = ({
     error,
     clearError,
     unit,
+    updateHourlyForecastSource,
+    hourlyForecastSource,
     humidity,
     wind_kph,
     feelslike_c,
@@ -55,9 +58,9 @@ export const Home = ({
 
     const changeHourlyForecastHandler = useCallback((forecastDayIndex) => {
         setSelectedDay(forecastDayIndex);
+        updateHourlyForecastSource('local');
     }, [forecastday]);
 
-    // console.log(isMobile)
     return (
         <>
             <section>
@@ -80,13 +83,16 @@ export const Home = ({
 
                     >
                         <div className={styles.todayWeatherContainer}>
-                            {isLoading ? <Skeleton height={29} className={styles.subHeading}></Skeleton> : <h2 className={styles.subHeading}>{formattedLocalTimeString}</h2>}
-                            {isLoading ? <Skeleton height={34} className={styles.heading} width={'70%'}></Skeleton> : <h1 className={styles.heading}>{name}, {country}</h1>}
-                            {isLoading ? <Skeleton height={24} width={'50%'} className={styles.info} ></Skeleton> : <p className={styles.info}>{text}</p>}
+                            <FadeTransition uniqueKey={name}>
+                                {isLoading ? <Skeleton height={29} className={styles.subHeading}></Skeleton> : <h2 className={styles.subHeading}>{formattedLocalTimeString}</h2>}
+                                {isLoading ? <Skeleton height={34} className={styles.heading} width={'70%'}></Skeleton> : <h1 className={styles.heading}>{name}, {country}</h1>}
+                                {isLoading ? <Skeleton height={24} width={'50%'} className={styles.info} ></Skeleton> : <p className={styles.info}>{text}</p>}
+                            </FadeTransition>
                             <div className={styles.weatherDescriptionContainer}>
                                 <div className={styles.animationContainer}>
                                     <AnimatePresence>
                                         {
+
                                             (isImageLoading || isLoading) && (
                                                 <motion.div
                                                     key="skeleton"
@@ -109,10 +115,11 @@ export const Home = ({
                                                     <Skeleton className={globalStyles.imgSkeletonLarge} />
                                                 </motion.div>
                                             )
+
                                         }
                                     </AnimatePresence>
                                     <motion.div
-                                        key="image"
+                                        key='image'
                                         transition={{
                                             duration: 0.3,
                                             delay: 0.2,
@@ -125,74 +132,81 @@ export const Home = ({
 
                                         animate={{
                                             // When isImageLoading is false skeleton disappears and animation starts.
-                                            opacity: (isImageLoading || isLoading) ? 0 : 1,
+                                            opacity: (isImageLoading || isLoading) ? 0 : [0, 0, 1, 1],
 
                                         }}
                                     >
                                         <img className={(isImageLoading || isLoading) ? globalStyles.visibilityHidden : ''} src={`${icon}?cacheBust=${Date.now()}`} alt="weather-img" onLoad={onLoadImageHandler} />
                                     </motion.div>
                                 </div>
-                                {isLoading ? <Skeleton height={49} width={124}></Skeleton> : <p>{unit === "C" ? `${temp_c}° C` : `${temp_f} °F`}</p>}
-                                {isLoading ? <div className={styles.todayDescriptionSkeletonContainer}><Skeleton height={20} width={153} count={3}></Skeleton></div> :
-                                    <ul>
-                                        <li>
-                                            <FaTemperatureFull />
-                                            <p>
-                                                Real fell: <span>{unit === "C" ? `${feelslike_c}° C` : `${feelslike_f}° F`}</span>
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <IoWaterOutline />
-                                            <p>
-                                                Humidity:  <span>{humidity} %</span>
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <FaWind />
-                                            <p>
-                                                Wind: <span>{wind_kph} km/h</span>
-                                            </p>
-                                        </li>
-                                    </ul>}
+                                <FadeTransition uniqueKey={name}>
+                                    {isLoading ? <Skeleton height={49} width={124}></Skeleton> : <p className={styles.currentTemp}>{unit === "C" ? `${temp_c}° C` : `${temp_f} °F`}</p>}
+                                </FadeTransition>
+                                <FadeTransition uniqueKey={name}>
+                                    {isLoading ? <div className={styles.todayDescriptionSkeletonContainer}><Skeleton height={20} width={153} count={3}></Skeleton></div> :
+                                        <ul>
+                                            <li>
+                                                <FaTemperatureFull />
+                                                <p>
+                                                    Real fell: <span>{unit === "C" ? `${feelslike_c}° C` : `${feelslike_f}° F`}</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <IoWaterOutline />
+                                                <p>
+                                                    Humidity:  <span>{humidity} %</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <FaWind />
+                                                <p>
+                                                    Wind: <span>{wind_kph} km/h</span>
+                                                </p>
+                                            </li>
+                                        </ul>}
+                                </FadeTransition>
 
                             </div>
-                            <ul className={styles.astrologyContainer}>
-                                <li>
-                                    {isLoading ? <Skeleton height={17} width={140} ></Skeleton> :
-                                        <>
-                                            <FiSunrise />
-                                            <p>Rise: <span>{sunrise}</span></p>
-                                        </>
-                                    }
+                            <FadeTransition uniqueKey={name}>
+                                <ul className={styles.astrologyContainer}>
+                                    <li>
+                                        {isLoading ? <Skeleton height={17} width={140} ></Skeleton> :
+                                            <>
+                                                <FiSunrise />
+                                                <p>Rise: <span>{sunrise}</span></p>
+                                            </>
+                                        }
 
-                                </li>
-                                <li>
-                                    {isLoading ? <Skeleton height={17} width={140} ></Skeleton> :
-                                        <>
-                                            <FiSunset />
-                                            <p>Set: <span>{sunset}</span></p>
-                                        </>
-                                    }
-                                </li>
-                                <li>
-                                    {isLoading ? <Skeleton height={17} width={140} ></Skeleton> :
-                                        <>
-                                            <FaTemperatureArrowUp />
-                                            <p>High: <span>{unit === "C" ? `${maxtemp_c}° C` : `${maxtemp_f}° F`}</span></p>
-                                        </>
-                                    }
+                                    </li>
+                                    <li>
+                                        {isLoading ? <Skeleton height={17} width={140} ></Skeleton> :
+                                            <>
+                                                <FiSunset />
+                                                <p>Set: <span>{sunset}</span></p>
+                                            </>
+                                        }
+                                    </li>
+                                    <li>
+                                        {isLoading ? <Skeleton height={17} width={140} ></Skeleton> :
+                                            <>
+                                                <FaTemperatureArrowUp />
+                                                <p>High: <span>{unit === "C" ? `${maxtemp_c}° C` : `${maxtemp_f}° F`}</span></p>
+                                            </>
+                                        }
 
-                                </li>
-                                <li>
-                                    {isLoading ? <Skeleton height={17} width={140} ></Skeleton> :
-                                        <>
-                                            <FaTemperatureArrowDown />
-                                            <p>Low: <span>{unit === "C" ? `${mintemp_c}° C` : `${mintemp_f}° F`}</span></p>
-                                        </>
-                                    }
+                                    </li>
+                                    <li>
+                                        {isLoading ? <Skeleton height={17} width={140} ></Skeleton> :
+                                            <>
+                                                <FaTemperatureArrowDown />
+                                                <p>Low: <span>{unit === "C" ? `${mintemp_c}° C` : `${mintemp_f}° F`}</span></p>
+                                            </>
+                                        }
 
-                                </li>
-                            </ul>
+                                    </li>
+                                </ul>
+                            </FadeTransition>
+
                         </div>
                         <div className={styles.forecastContainer}>
                             <h2>Three Days Forecast</h2>
@@ -205,16 +219,16 @@ export const Home = ({
                                     transition={{ duration: 1.5 }}
 
                                     animate={{
-                                        x: (isInView && isMobile )? [0, -20, 0] : {}
+                                        x: (isInView && isMobile) ? [0, -20, 0] : {}
                                     }}
                                 >
-                                    <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} name={name} />
+                                    <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} name={name} hourlyForecastSource={hourlyForecastSource} />
                                 </motion.div>
                             </div>
                         </div>
                     </motion.div>
                 </div>
-            </section>
+            </section >
         </>
     )
 }
