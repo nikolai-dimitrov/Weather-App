@@ -1,7 +1,8 @@
 import { AnimatePresence, motion, easeInOut } from "motion/react";
+import { FadeTransition } from "../../FadeTransition/FadeTransition";
 import Skeleton from "react-loading-skeleton";
 
-import { useImageLoadingSkeleton } from '../../../hooks/useImageLoadingSkeleton';
+import { useImageLoadingSkeleton } from "../../../hooks/useImageLoadingSkeleton";
 
 import { parseLocalTimePart } from "../../../utils/formatLocalTime";
 
@@ -77,10 +78,13 @@ export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecas
                         </motion.div>
                     </div>
                 </div>
-                {isLoading ?
-                    <Skeleton height={20}></Skeleton> :
-                    <p>{unit === "C" ? `${dailyWeatherData.day.avgtemp_c}° C` : `${dailyWeatherData.day.avgtemp_f} °F`}</p>
-                }
+                <FadeTransition uniqueKey={name}>
+                    {isLoading ?
+                        <Skeleton height={20}></Skeleton> :
+                        <p>{unit === "C" ? `${dailyWeatherData.day.avgtemp_c}° C` : `${dailyWeatherData.day.avgtemp_f} °F`}</p>
+                    }
+                </FadeTransition>
+
             </div>
         </li>
     )
