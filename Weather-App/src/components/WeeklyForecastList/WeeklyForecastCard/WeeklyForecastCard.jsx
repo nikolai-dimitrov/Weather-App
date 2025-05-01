@@ -9,7 +9,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import styles from "./weekly-forecast-card.module.css";
 import globalStyles from '../../../styles/global.module.css'
 
-export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecastHandler, index, isLoading }) => {
+export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecastHandler, index, isLoading, name }) => {
     const { isImageLoading, onLoadImageHandler } = useImageLoadingSkeleton(isLoading);
 
     const shortDayName = parseLocalTimePart(dailyWeatherData.date, { weekday: "short" });
@@ -47,29 +47,35 @@ export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecas
                             )
                         }
                     </AnimatePresence>
-                    <motion.div
-                        key="image"
-                        transition={{
-                            duration: 0.3,
-                            delay: 0.2,
-                            ease: easeInOut,
-                        }}
+                    <div className={styles.imageWrapper}>
+                        <motion.div
+                            key={name}
+                            transition={{
+                                duration: 0.3,
+                                delay: 0.2,
+                                ease: easeInOut,
+                            }}
 
-                        initial={{
-                            opacity: 0,
-                        }}
+                            initial={{
+                                opacity: 0,
+                            }}
 
-                        animate={{
-                            // When isImageLoading is false skeleton disappears and animation starts.
-                            opacity: (isImageLoading || isLoading) ? 0 : [0, 0, 1, 1],
+                            animate={{
+                                // When isImageLoading is false skeleton disappears and animation starts.
+                                opacity: (isImageLoading || isLoading) ? 0 : [0, 0, 1, 1],
 
-                        }}
-                    >
-                        {/* Change image visibility instantly when isLoading state is set to true. 
+                            }}
+
+                            exit={{
+                                opacity: 0
+                            }}
+                        >
+                            {/* Change image visibility instantly when isLoading state is set to true. 
                         That prevents last image to be shown for a moment before skeleton appears. */}
-                        <img className={(isImageLoading || isLoading) ? globalStyles.visibilityHidden : ''} src={`${dailyWeatherData.day.condition.icon}?cacheBust=${Date.now()}`} alt="Weather img" onLoad={onLoadImageHandler} />
+                            <img className={(isImageLoading || isLoading) ? globalStyles.visibilityHidden : ''} src={`${dailyWeatherData.day.condition.icon}?cacheBust=${Date.now()}`} alt="Weather img" onLoad={onLoadImageHandler} />
 
-                    </motion.div>
+                        </motion.div>
+                    </div>
                 </div>
                 {isLoading ?
                     <Skeleton height={20}></Skeleton> :
