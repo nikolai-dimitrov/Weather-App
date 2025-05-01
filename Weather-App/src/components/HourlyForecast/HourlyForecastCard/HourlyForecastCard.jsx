@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { AnimatePresence, easeInOut, motion } from "motion/react";
+import { FadeTransition } from '../../FadeTransition/FadeTransition';
+import { AnimatePresence, easeInOut, motion } from 'motion/react';
 import Skeleton from "react-loading-skeleton";
 
 import { useImageLoadingSkeleton } from '../../../hooks/useImageLoadingSkeleton';
@@ -67,7 +68,7 @@ export const HourlyForecastCard = ({ unit, currentHourObject, isLoading, name })
                         }
                     </AnimatePresence>
                     <motion.div
-                        key="image"
+                        key={`${name}-${currentHourObject.pressure_mb}-${currentHourObject.temp_c}-${currentHourObject.dewpoint_f}`}
                         transition={{
                             duration: 0.3,
                             delay: 0.2,
@@ -87,11 +88,12 @@ export const HourlyForecastCard = ({ unit, currentHourObject, isLoading, name })
                         <img className={(isImageLoading || isLoading) ? globalStyles.visibilityHidden : ''} src={`${currentHourObject.condition.icon}?cacheBust=${Date.now()}`} alt="Weather img" onLoad={() => onLoadImageHandler(imageSkeletonDelayRef)} />
                     </motion.div>
                 </div>
-                {isLoading ?
-                    <Skeleton height={20} ></Skeleton> :
-                    <p>{unit === "C" ? `${currentHourObject.temp_c}° C` : `${currentHourObject.temp_f} °F`}</p>
-                }
-
+                <FadeTransition uniqueKey={`${name}-${currentHourObject.pressure_mb}-${currentHourObject.temp_c}-${currentHourObject.dewpoint_f}`}>
+                    {isLoading ?
+                        <Skeleton height={20} ></Skeleton> :
+                        <p>{unit === "C" ? `${currentHourObject.temp_c}° C` : `${currentHourObject.temp_f} °F`}</p>
+                    }
+                </FadeTransition>
             </div>
         </li>
     )
