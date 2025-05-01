@@ -58,11 +58,8 @@ section {
 	left: 0;
 }
 
-.weatherDescriptionContainer > p {
-	display: flex;
-	flex-direction: row;
-	font-size: 40px;
-	gap: 5px;
+.imageWrapper {
+	width: 90px;
 }
 
 .weatherDescriptionContainer .currentTemp {

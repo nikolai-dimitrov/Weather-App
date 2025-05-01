@@ -115,26 +115,31 @@ export const Home = ({
 
                                         }
                                     </AnimatePresence>
-                                    <motion.div
-                                        key='image'
-                                        transition={{
-                                            duration: 0.3,
-                                            delay: 0.2,
-                                            ease: easeInOut,
-                                        }}
+                                    <div className={styles.imageWrapper}>
+                                        <motion.div
+                                            key={name}
+                                            transition={{
+                                                duration: 0.3,
+                                                delay: 0.2,
+                                                ease: easeInOut,
+                                            }}
 
-                                        initial={{
-                                            opacity: 0,
-                                        }}
+                                            initial={{
+                                                opacity: 0,
+                                            }}
 
-                                        animate={{
-                                            // When isImageLoading is false skeleton disappears and animation starts.
-                                            opacity: (isImageLoading || isLoading) ? 0 : [0, 0, 1, 1],
+                                            animate={{
+                                                // When isImageLoading is false skeleton disappears and animation starts.
+                                                opacity: (isImageLoading || isLoading) ? 0 : [0, 0, 1, 1],
 
-                                        }}
-                                    >
-                                        <img className={(isImageLoading || isLoading) ? globalStyles.visibilityHidden : ''} src={`${icon}?cacheBust=${Date.now()}`} alt="weather-img" onLoad={onLoadImageHandler} />
-                                    </motion.div>
+                                            }}
+                                            exit={{
+                                                opacity: 0
+                                            }}
+                                        >
+                                            <img className={(isImageLoading || isLoading) ? globalStyles.visibilityHidden : ''} src={`${icon}?cacheBust=${Date.now()}`} alt="weather-img" onLoad={onLoadImageHandler} />
+                                        </motion.div>
+                                    </div>
                                 </div>
                                 <FadeTransition uniqueKey={name}>
                                     {isLoading ? <Skeleton height={49} width={124}></Skeleton> : <p className={styles.currentTemp}>{unit === "C" ? `${temp_c}° C` : `${temp_f} °F`}</p>}
