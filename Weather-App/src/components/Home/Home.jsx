@@ -133,9 +133,6 @@ export const Home = ({
                                                 opacity: (isImageLoading || isLoading) ? 0 : [0, 0, 1, 1],
 
                                             }}
-                                            exit={{
-                                                opacity: 0
-                                            }}
                                         >
                                             <img className={(isImageLoading || isLoading) ? globalStyles.visibilityHidden : ''} src={`${icon}?cacheBust=${Date.now()}`} alt="weather-img" onLoad={onLoadImageHandler} />
                                         </motion.div>

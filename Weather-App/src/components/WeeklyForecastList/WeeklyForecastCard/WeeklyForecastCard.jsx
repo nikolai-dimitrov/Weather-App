@@ -66,10 +66,6 @@ export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecas
                                 opacity: (isImageLoading || isLoading) ? 0 : [0, 0, 1, 1],
 
                             }}
-
-                            exit={{
-                                opacity: 0
-                            }}
                         >
                             {/* Change image visibility instantly when isLoading state is set to true. 
                         That prevents last image to be shown for a moment before skeleton appears. */}
