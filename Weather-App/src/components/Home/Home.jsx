@@ -45,7 +45,7 @@ export const Home = ({
     const { isImageLoading, onLoadImageHandler } = useImageLoadingSkeleton(isLoading);
     const isMobile = useScreenResize();
     const scrollContainerRef = useRef(null);
-    const isInView = useInView(scrollContainerRef, { once: true });
+    const isInView = useInView(scrollContainerRef, { once: false });
 
     const formattedLocalTimeString = formatLocalTime(localtime);
     // It parses date to corresponding short day name. - Wed
@@ -215,10 +215,10 @@ export const Home = ({
                             <h2>Hourly Forecast - {dayName}</h2>
                             <div className={styles.hourlyForecastWrapper} ref={scrollContainerRef}>
                                 <motion.div
-                                    transition={{ duration: 1.5 }}
+                                    transition={{ duration: 2 }}
 
                                     animate={{
-                                        x: (isInView && isMobile) ? [0, -20, 0] : {}
+                                        x: (isInView && isMobile) ? [0, -50, 0] : {}
                                     }}
                                 >
                                     <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} name={name} />
