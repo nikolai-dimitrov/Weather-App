@@ -1,4 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useContext, useRef } from 'react';
+import { WeatherContext } from '../../../contexts/WeatherContext';
+
 import { FadeTransition } from '../../FadeTransition/FadeTransition';
 import { AnimatePresence, easeInOut, motion } from 'motion/react';
 import Skeleton from "react-loading-skeleton";
@@ -8,7 +10,8 @@ import { useImageLoadingSkeleton } from '../../../hooks/useImageLoadingSkeleton'
 import 'react-loading-skeleton/dist/skeleton.css';
 import styles from './hourly-forecast-card.module.css';
 import globalStyles from '../../../styles/global.module.css';
-export const HourlyForecastCard = ({ unit, currentHourObject, isLoading, name }) => {
+export const HourlyForecastCard = ({ currentHourObject }) => {
+    const { name, isLoading, unit } = useContext(WeatherContext);
     const { isImageLoading, triggerImageLoading, onLoadImageHandler } = useImageLoadingSkeleton(isLoading);
     const previousCityNameRef = useRef(null);
     const imageSkeletonDelayRef = useRef(null);

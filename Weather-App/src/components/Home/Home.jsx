@@ -223,13 +223,13 @@ export const Home = () => {
                                         x: (isInView && isMobile) ? [0, -50, 0] : {}
                                     }}
                                 >
-                                    <HourlyForecastList filteredHours={filteredHours} unit={unit} isLoading={isLoading} name={name} />
+                                    <HourlyForecastList filteredHours={filteredHours} />
                                 </motion.div>
                             </div>
                         </div>
                     </motion.div>
                 </div>
-            </section >
+            </section>
         </>
     )
 }
