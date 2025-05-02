@@ -12,8 +12,8 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import styles from "./weekly-forecast-card.module.css";
 import globalStyles from '../../../styles/global.module.css'
 
-export const WeeklyForecastCard = ({dailyWeatherData, index}) => {
-    const { name, isLoading, unit, changeHourlyForecastHandler } = useContext(WeatherContext);
+export const WeeklyForecastCard = ({ dailyWeatherData, index, changeHourlyForecastHandler }) => {
+    const { name, isLoading, unit} = useContext(WeatherContext);
     const { isImageLoading, onLoadImageHandler } = useImageLoadingSkeleton(isLoading);
 
     const shortDayName = parseLocalTimePart(dailyWeatherData.date, { weekday: "short" });

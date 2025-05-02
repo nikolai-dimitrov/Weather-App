@@ -211,7 +211,7 @@ export const Home = () => {
                         </div>
                         <div className={styles.forecastContainer}>
                             <h2>Three Days Forecast</h2>
-                            <WeeklyForecastList forecastday={forecastday} />
+                            <WeeklyForecastList forecastday={forecastday} changeHourlyForecastHandler={changeHourlyForecastHandler} />
                         </div>
                         <div className={styles.forecastContainer}>
                             <h2>Hourly Forecast - {dayName}</h2>
