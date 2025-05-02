@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { WeatherContext } from "../../contexts/WeatherContext";
 
 import { IoMdPartlySunny } from "react-icons/io";
 import { BiCurrentLocation } from "react-icons/bi";
@@ -6,12 +7,8 @@ import { FaSearch } from "react-icons/fa";
 
 import styles from "./navbar.module.css";
 
-export const Navbar = ({
-    geoLocationBtnClickHandler,
-    searchFormSubmitHandler,
-    disableLocationBtn,
-    changeUnits
-}) => {
+export const Navbar = () => {
+    const { geoLocationBtnClickHandler, searchFormSubmitHandler, disableLocationBtn, changeUnits } = useContext(WeatherContext);
     const [searchedLocation, setSearchedLocation] = useState({
         location: '',
     });
