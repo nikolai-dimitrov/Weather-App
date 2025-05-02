@@ -1,4 +1,5 @@
-import { useState, useMemo, useRef, useCallback } from "react";
+import { useState, useContext, useMemo, useRef, useCallback } from "react";
+import { WeatherContext } from "../../contexts/WeatherContext";
 
 import { WeeklyForecastList } from "../WeeklyForecastList/WeeklyForecastList";
 import { HourlyForecastList } from "../HourlyForecast/HourlyForecastList";
@@ -6,8 +7,8 @@ import { Popup } from "../Popup/Popup";
 import { FadeTransition } from "../FadeTransition/FadeTransition";
 import Skeleton from "react-loading-skeleton";
 
-import { useImageLoadingSkeleton } from '../../hooks/useImageLoadingSkeleton';
-import { useScreenResize } from '../../hooks/useScreenResize'
+import { useImageLoadingSkeleton } from "../../hooks/useImageLoadingSkeleton";
+import { useScreenResize } from "../../hooks/useScreenResize";
 import { formatLocalTime, parseLocalTimePart } from "../../utils/formatLocalTime";
 
 import { AnimatePresence, easeInOut, motion, useInView } from "motion/react";
@@ -15,32 +16,34 @@ import { FaTemperatureFull, FaWind, FaTemperatureArrowDown, FaTemperatureArrowUp
 import { IoWaterOutline } from "react-icons/io5";
 import { FiSunrise, FiSunset } from "react-icons/fi";
 
-import 'react-loading-skeleton/dist/skeleton.css';
+import "react-loading-skeleton/dist/skeleton.css";
 import styles from "./home.module.css";
 import globalStyles from "../../styles/global.module.css"
-export const Home = ({
-    isLoading,
-    error,
-    clearError,
-    unit,
-    humidity,
-    wind_kph,
-    feelslike_c,
-    feelslike_f,
-    temp_c,
-    temp_f,
-    country,
-    name,
-    localtime,
-    forecastday,
-    text,
-    sunrise,
-    sunset,
-    maxtemp_c,
-    maxtemp_f,
-    mintemp_c,
-    mintemp_f,
-    icon }) => {
+export const Home = () => {
+    const {
+        isLoading,
+        error,
+        clearError,
+        unit,
+        humidity,
+        wind_kph,
+        feelslike_c,
+        feelslike_f,
+        temp_c,
+        temp_f,
+        country,
+        name,
+        localtime,
+        forecastday,
+        text,
+        sunrise,
+        sunset,
+        maxtemp_c,
+        maxtemp_f,
+        mintemp_c,
+        mintemp_f,
+        icon
+    } = useContext(WeatherContext);
     const [selectedDay, setSelectedDay] = useState(0);
     const { isImageLoading, onLoadImageHandler } = useImageLoadingSkeleton(isLoading);
     const isMobile = useScreenResize();
@@ -201,7 +204,6 @@ export const Home = ({
                                                 <p>Low: <span>{unit === "C" ? `${mintemp_c}° C` : `${mintemp_f}° F`}</span></p>
                                             </>
                                         }
-
                                     </li>
                                 </ul>
                             </FadeTransition>
@@ -209,7 +211,7 @@ export const Home = ({
                         </div>
                         <div className={styles.forecastContainer}>
                             <h2>Three Days Forecast</h2>
-                            <WeeklyForecastList forecastday={forecastday} unit={unit} changeHourlyForecastHandler={changeHourlyForecastHandler} isLoading={isLoading} name={name} />
+                            <WeeklyForecastList forecastday={forecastday} />
                         </div>
                         <div className={styles.forecastContainer}>
                             <h2>Hourly Forecast - {dayName}</h2>
