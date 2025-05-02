@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { WeatherContext } from "../../../contexts/WeatherContext";
 import { AnimatePresence, motion, easeInOut } from "motion/react";
 import { FadeTransition } from "../../FadeTransition/FadeTransition";
 import Skeleton from "react-loading-skeleton";
@@ -10,7 +12,8 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import styles from "./weekly-forecast-card.module.css";
 import globalStyles from '../../../styles/global.module.css'
 
-export const WeeklyForecastCard = ({ unit, dailyWeatherData, changeHourlyForecastHandler, index, isLoading, name }) => {
+export const WeeklyForecastCard = ({dailyWeatherData, index}) => {
+    const { name, isLoading, unit, changeHourlyForecastHandler } = useContext(WeatherContext);
     const { isImageLoading, onLoadImageHandler } = useImageLoadingSkeleton(isLoading);
 
     const shortDayName = parseLocalTimePart(dailyWeatherData.date, { weekday: "short" });
