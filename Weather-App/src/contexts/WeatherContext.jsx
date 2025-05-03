@@ -85,6 +85,7 @@ export const WeatherProvider = ({ children }) => {
         unit,
         isLoading: isLoading && showLoadingSkeleton,
         disableLocationBtn,
+        error,
         updateQueryByGeolocation,
         searchFormSubmitHandler,
         geoLocationBtnClickHandler,
