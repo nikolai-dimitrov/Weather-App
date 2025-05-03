@@ -8,7 +8,6 @@ export const WeatherProvider = ({ children }) => {
     const [weatherData, setWeatherData] = useState(null);
     const [queryString, setQueryString] = useState(null);
     const [unit, setUnit] = useState("C");
-    const [showOpeningAnimation, setShowOpeningAnimation] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const [showLoadingSkeleton, setShowLoadingSkeleton] = useState(false);
     const [disableLocationBtn, setDisableLocationBtn] = useState(false);
@@ -86,7 +85,6 @@ export const WeatherProvider = ({ children }) => {
         unit,
         isLoading: isLoading && showLoadingSkeleton,
         disableLocationBtn,
-        showOpeningAnimation,
         updateQueryByGeolocation,
         searchFormSubmitHandler,
         geoLocationBtnClickHandler,

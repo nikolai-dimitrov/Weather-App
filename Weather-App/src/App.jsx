@@ -9,13 +9,8 @@ import { validateWeatherForm } from './validators/validateWeatherForm';
 import './App.css';
 
 function App() {
-  const { weatherData, isLoading, updateQueryByGeolocation } = useContext(WeatherContext);
-  // const [queryString, setQueryString] = useState(null);
-  // const [unit, setUnit] = useState("C");
+  const { updateQueryByGeolocation } = useContext(WeatherContext);
   const [showOpeningAnimation, setShowOpeningAnimation] = useState(true);
-  // const [showLoadingSkeleton, setShowLoadingSkeleton] = useState(false);
-  // const [disableLocationBtn, setDisableLocationBtn] = useState(false);
-  // const [error, setError] = useState(null);
   useEffect(() => {
     const timeOut = setTimeout(() => setShowOpeningAnimation(false), 4000);
     // Get geolocation and update queryString with your current location on component mount.
