@@ -93,7 +93,7 @@ export const HourlyForecastCard = ({ currentHourObject }) => {
                 </div>
                 <FadeTransition uniqueKey={`${name}-${currentHourObject.pressure_mb}-${currentHourObject.temp_c}-${currentHourObject.dewpoint_f}`}>
                     {isLoading ?
-                        <Skeleton height={20} ></Skeleton> :
+                        <Skeleton height={20} width={64} ></Skeleton> :
                         <p>{unit === "C" ? `${currentHourObject.temp_c}° C` : `${currentHourObject.temp_f} °F`}</p>
                     }
                 </FadeTransition>
