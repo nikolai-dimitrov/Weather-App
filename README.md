@@ -26,7 +26,7 @@
 ### ***Hosting***
 - **Firebase**
 
+## **Target**
 
-
-
+### ***The main reason to do this project is to expand my knowledge of component re-render, component lifecycle, useMemo, useCallback, React.memo.Also to learn the difference between using these hooks in context or in component.***.
 
