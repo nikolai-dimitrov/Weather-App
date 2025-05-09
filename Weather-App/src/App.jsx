@@ -6,7 +6,6 @@ import { Footer } from './components/Footer/Footer';
 import { OpeningAnimation } from './components/OpeningAnimation/OpeningAnimation';
 import { ErrorScreen } from './components/ErrorScreen/ErrorScreen';
 
-import { validateWeatherForm } from './validators/validateWeatherForm';
 import './App.css';
 
 

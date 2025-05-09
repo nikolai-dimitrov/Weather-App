@@ -1,6 +1,3 @@
-import { formatLocalTime } from "../utils/formatLocalTime";
-import { parseLocalTimePart } from "../utils/formatLocalTime";
-
 const API_KEY = "bdf42325dd664721bf0112934252503"; //3
 const BASE_URL = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}`;
 
