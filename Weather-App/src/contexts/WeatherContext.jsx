@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import { extractWeatherData } from "../services/weatherApiService";
+import { isDevEnvironment } from "../utils/isDevEnvironment";
 
 import { validateWeatherForm } from "../validators/validateWeatherForm";
 
@@ -12,6 +13,7 @@ export const WeatherProvider = ({ children }) => {
     const [showLoadingSkeleton, setShowLoadingSkeleton] = useState(false);
     const [disableLocationBtn, setDisableLocationBtn] = useState(false);
     const [error, setError] = useState(null);
+    const [showErrorScreen, setShowErrorScreen] = useState(false);
 
 
     useEffect(() => {
@@ -24,6 +26,7 @@ export const WeatherProvider = ({ children }) => {
             }
 
             setIsLoading(isLoading => true);
+            setShowErrorScreen(false);
             try {
                 const data = await extractWeatherData(queryString);
                 setWeatherData(data);
@@ -32,7 +35,17 @@ export const WeatherProvider = ({ children }) => {
                 setShowLoadingSkeleton(false);
                 setError(null);
             } catch (error) {
-                setError(error.message);
+                const isDevEnv = isDevEnvironment();
+
+                if (isDevEnv) {
+                    setError(error.message);
+                } else {
+                    if (error.code == 1006) {
+                        setError(error.message);
+                    } else {
+                        setShowErrorScreen(true);
+                    }
+                }
             };
         };
 
@@ -86,6 +99,7 @@ export const WeatherProvider = ({ children }) => {
         isLoading: isLoading && showLoadingSkeleton,
         disableLocationBtn,
         error,
+        showErrorScreen,
         updateQueryByGeolocation,
         searchFormSubmitHandler,
         geoLocationBtnClickHandler,

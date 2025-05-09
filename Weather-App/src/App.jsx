@@ -4,12 +4,14 @@ import { Navbar } from './components/Navbar/Navbar';
 import { Home } from './components/Home/Home';
 import { Footer } from './components/Footer/Footer';
 import { OpeningAnimation } from './components/OpeningAnimation/OpeningAnimation';
+import { ErrorScreen } from './components/ErrorScreen/ErrorScreen';
 
 import { validateWeatherForm } from './validators/validateWeatherForm';
 import './App.css';
 
+
 function App() {
-  const { updateQueryByGeolocation } = useContext(WeatherContext);
+  const { updateQueryByGeolocation, showErrorScreen } = useContext(WeatherContext);
   const [showOpeningAnimation, setShowOpeningAnimation] = useState(true);
   useEffect(() => {
     const timeOut = setTimeout(() => setShowOpeningAnimation(false), 4000);
@@ -24,17 +26,24 @@ function App() {
         showOpeningAnimation ? (
           <OpeningAnimation />
         ) : (
-          <>
-            <header>
-              <Navbar />
-            </header>
-            <main>
-              <Home />
-            </main>
-            <footer>
-              <Footer />
-            </footer>
-          </>
+
+          showErrorScreen ? (
+            <ErrorScreen />
+
+          ) : (
+            <>
+              <header>
+                <Navbar />
+              </header>
+              <main>
+                <Home />
+              </main>
+              <footer>
+                <Footer />
+              </footer>
+            </>
+          )
+
         )
       }
     </>
