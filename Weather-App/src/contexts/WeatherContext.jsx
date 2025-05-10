@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext } from "react";
+import { useProcessError } from "../hooks/useProcessError";
 import { extractWeatherData } from "../services/weatherApiService";
-import { isDevEnvironment } from "../utils/isDevEnvironment";
 
 import { validateWeatherForm } from "../validators/validateWeatherForm";
 
@@ -12,13 +12,12 @@ export const WeatherProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [showLoadingSkeleton, setShowLoadingSkeleton] = useState(false);
     const [disableLocationBtn, setDisableLocationBtn] = useState(false);
-    const [error, setError] = useState(null);
-    const [showErrorScreen, setShowErrorScreen] = useState(false);
+    const { error, processError, clearError, showErrorScreen, hideErrorScreen } = useProcessError();
 
 
     useEffect(() => {
         // Using showLoadingSkeleton && isLoading prevent skeleton blinking.Skeleton will be shown if fetch isn't completed for less than 300ms.
-        const skeletonDelay = setTimeout(() => setShowLoadingSkeleton(true), 300)
+        const skeletonDelay = setTimeout(() => setShowLoadingSkeleton(true), 300);
 
         const fetchAndUpdateWeather = async () => {
             if (!queryString) {
@@ -26,31 +25,21 @@ export const WeatherProvider = ({ children }) => {
             }
 
             setIsLoading(isLoading => true);
-            setShowErrorScreen(false);
+            hideErrorScreen();
             try {
                 const data = await extractWeatherData(queryString);
                 setWeatherData(data);
                 clearTimeout(skeletonDelay)
                 setIsLoading(isLoading => false);
                 setShowLoadingSkeleton(false);
-                setError(null);
+                clearError()
             } catch (error) {
-                const isDevEnv = isDevEnvironment();
-
-                if (isDevEnv) {
-                    setError(error.message);
-                } else {
-                    if (error.code == 1006) {
-                        setError(error.message);
-                    } else {
-                        setShowErrorScreen(true);
-                    }
-                }
+                processError(error);
             };
         };
 
         fetchAndUpdateWeather();
-        return () => clearTimeout(skeletonDelay)
+        return () => clearTimeout(skeletonDelay);
     }, [queryString])
 
     const updateQueryByGeolocation = () => {
@@ -61,9 +50,10 @@ export const WeatherProvider = ({ children }) => {
                     setQueryString((queryString) => (`${latitude}, ${longitude}`));
                 },
                 (error) => {
+                    console.log(error)
                     setQueryString((queryString) => ('London'));
                     setDisableLocationBtn(true);
-                    setError("Can not access your location!");
+                    processError(error);
                 }
             )
         };
@@ -82,10 +72,6 @@ export const WeatherProvider = ({ children }) => {
     const geoLocationBtnClickHandler = () => {
         updateQueryByGeolocation();
     }
-
-    const clearError = () => {
-        setError(null);
-    };
 
     const changeUnits = (newUnit) => {
         if (newUnit != unit) {

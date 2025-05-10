@@ -65,7 +65,7 @@ export const Home = () => {
         <>
             <section>
                 <AnimatePresence>
-                    {error && <Popup message={error} clearError={clearError} />}
+                    {error && <Popup message={error.message} clearError={clearError} />}
                 </AnimatePresence>
                 <div className={styles.homeContentContainer}>
                     <motion.div
