@@ -50,7 +50,6 @@ export const WeatherProvider = ({ children }) => {
                     setQueryString((queryString) => (`${latitude}, ${longitude}`));
                 },
                 (error) => {
-                    console.log(error)
                     setQueryString((queryString) => ('London'));
                     setDisableLocationBtn(true);
                     processError(error);
